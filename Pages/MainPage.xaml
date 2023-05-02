@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp3.MainPage"
+             Title="Authorization">
+    <Grid
+        RowDefinitions="30, 50,30,50,20, 50, 50"
+          ColumnDefinitions=".25*,.5*,.08*, .17*"
+          Padding="20"
+          RowSpacing="10"
+          ColumnSpacing="10"
+        BackgroundColor="White">
+        <Label Grid.Row="0"
+               Grid.Column ="1"
+               HorizontalOptions="Start"
+               Text="Username"
+               FontSize="20"/>
+        <Entry Placeholder="Enter email"
+               BackgroundColor="White"
+               Grid.Row="1"
+               Grid.Column ="1"/>
+        <Label Grid.Row="2"
+               Grid.Column ="1"
+               Text="Password"
+               FontSize="20"
+               HorizontalOptions="Start"/>
+        <Entry Placeholder="Enter password"
+               IsPassword="True"
+                BackgroundColor="White"
+               x:Name="RegistrationPassword"
+               Grid.Row="3"
+               Grid.Column ="1"/>
+        <ImageButton Source="eye_open.png"
+                 x:Name="ShowRegisterPasswordButton"
+                Clicked="OnShowRegisterPasswordButtonClicked"
+                 Grid.Row="3"
+               Grid.Column ="2"/>
+        <Button Text="Register as a new user"
+                 x:Name="RegisterButton"
+                Clicked="OnRegisterButtonClicked"
+                BackgroundColor="White"
+               TextColor="Blue"
+               BorderColor="White"
+               Grid.Row="6"
+               HorizontalOptions="Start"
+               Grid.Column ="1"/>
+        
+        <Button Text="Log in"
+                x:Name="LogInButton"
+                Clicked="OnLogInButtonClicked"
+                BackgroundColor="Blue"
+                TextColor="White"
+                BorderColor="SkyBlue"
+               
+                 Grid.Row="5"
+               Grid.Column ="1"/>
+    </Grid>
+
+</ContentPage>

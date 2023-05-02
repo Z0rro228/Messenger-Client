@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp3.ChatsPage"
+             Title="Chats">
+
+    <Grid
+          RowDefinitions="50,"
+          ColumnDefinitions=".25*,.75*"
+          Padding="5"
+          RowSpacing="10"
+          ColumnSpacing="10"
+        BackgroundColor="White">
+        <ScrollView
+            Grid.Column="0"
+            Grid.Row="1">
+            <StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Grid WidthRequest="54" HeightRequest="54" HorizontalOptions="Center">
+                        <Image Source="user_image.png" WidthRequest="54" HeightRequest="54"/>
+                        <Ellipse WidthRequest="18" HeightRequest="18" Fill="Green"
+                             Stroke="Black" StrokeThickness="6" HorizontalOptions="End"
+                             VerticalOptions="End"/>
+                    </Grid>
+
+                    <StackLayout Margin="10,5,0,0" HorizontalOptions="Start">
+                        <Label Text="Thanos" FontSize="15" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+
+                        <Label Text="aaaaaaaaaaaaaa -  Mar 27" FontSize="12" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Margin="0,10,0,0">
+                    <Grid WidthRequest="54" HeightRequest="54" HorizontalOptions="Center">
+                        <Image Source="user_image.png" WidthRequest="54" HeightRequest="54"/>
+
+                        <Border HeightRequest="18" BackgroundColor="SkyBlue"
+                                HorizontalOptions="End" VerticalOptions="End" Stroke="Black"
+                                StrokeThickness="1">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="90"/>
+                            </Border.StrokeShape>
+
+                            <Label Text="15m" FontSize="10" TextColor="Black" Margin="3,0,3,0"/>
+                        </Border>
+                    </Grid>
+
+                    <StackLayout Margin="10,5,0,0" HorizontalOptions="Start">
+                        <Label Text="Black Panther" FontSize="15" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+
+                        <Label Text="aaaaaaaaaaaaaa -  Mar 27" FontSize="12" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Margin="0,10,0,0">
+                    <Grid WidthRequest="54" HeightRequest="54" HorizontalOptions="Center">
+                        <Image Source="user_image.png" WidthRequest="54" HeightRequest="54"/>
+                        <Ellipse WidthRequest="18" HeightRequest="18" Fill="Green"
+                             Stroke="Black" StrokeThickness="6" HorizontalOptions="End"
+                             VerticalOptions="End"/>
+                    </Grid>
+
+                    <StackLayout Margin="10,5,0,0" HorizontalOptions="Start">
+                        <Label Text="Hulk" FontSize="15" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+
+                        <Label Text="aaaaaaaaaaaaaa -  Mar 27" FontSize="12" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Margin="0,10,0,0">
+                    <Grid WidthRequest="54" HeightRequest="54" HorizontalOptions="Center">
+                        <Image Source="user_image.png" WidthRequest="54" HeightRequest="54"/>
+                        <Ellipse WidthRequest="18" HeightRequest="18" Fill="Green"
+                             Stroke="Black" StrokeThickness="6" HorizontalOptions="End"
+                             VerticalOptions="End"/>
+                    </Grid>
+
+                    <StackLayout Margin="10,5,0,0" HorizontalOptions="Start">
+                        <Label Text="Rocket" FontSize="15" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+
+                        <Label Text="aaaaaaaaaaaaaa -  Mar 27" FontSize="12" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Margin="0,10,0,0">
+                    <Grid WidthRequest="54" HeightRequest="54" HorizontalOptions="Center">
+                        <Image Source="user_image.png" WidthRequest="54" HeightRequest="54"/>
+                        <Ellipse WidthRequest="18" HeightRequest="18" Fill="Green"
+                             Stroke="Black" StrokeThickness="6" HorizontalOptions="End"
+                             VerticalOptions="End"/>
+                    </Grid>
+
+                    <StackLayout Margin="10,5,0,0" HorizontalOptions="Start">
+                        <Label Text="Falcon" FontSize="15" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+
+                        <Label Text="aaaaaaaaaaaaaa -  Mar 27" FontSize="12" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Margin="0,10,0,0">
+                    <Grid WidthRequest="54" HeightRequest="54" HorizontalOptions="Center">
+                        <Image Source="user_image.png" WidthRequest="54" HeightRequest="54"/>
+                        <Ellipse WidthRequest="18" HeightRequest="18" Fill="Green"
+                             Stroke="Black" StrokeThickness="6" HorizontalOptions="End"
+                             VerticalOptions="End"/>
+                    </Grid>
+
+                    <StackLayout Margin="10,5,0,0" HorizontalOptions="Start">
+                        <Label Text="Vision" FontSize="15" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+
+                        <Label Text="aaaaaaaaaaaaaa -  Mar 27" FontSize="12" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Margin="0,10,0,0">
+                    <Grid WidthRequest="54" HeightRequest="54" HorizontalOptions="Center">
+                        <Image Source="user_image.png" WidthRequest="54" HeightRequest="54"/>
+                        <Ellipse WidthRequest="18" HeightRequest="18" Fill="Green"
+                             Stroke="Black" StrokeThickness="6" HorizontalOptions="End"
+                             VerticalOptions="End"/>
+                    </Grid>
+
+                    <StackLayout Margin="10,5,0,0" HorizontalOptions="Start">
+                        <Label Text="Wanda" FontSize="15" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+
+                        <Label Text="aaaaaaaaaaaaaa -  Mar 27" FontSize="12" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Margin="0,10,0,0">
+                    <Grid WidthRequest="54" HeightRequest="54" HorizontalOptions="Center">
+                        <Image Source="user_image.png" WidthRequest="54" HeightRequest="54"/>
+                        <Ellipse WidthRequest="18" HeightRequest="18" Fill="Green"
+                             Stroke="Black" StrokeThickness="6" HorizontalOptions="End"
+                             VerticalOptions="End"/>
+                    </Grid>
+
+                    <StackLayout Margin="10,5,0,0" HorizontalOptions="Start">
+                        <Label Text="Root" FontSize="15" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+
+                        <Label Text="aaaaaaaaaaaaaa -  Mar 27" FontSize="12" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Margin="0,10,0,0">
+                    <Grid WidthRequest="54" HeightRequest="54" HorizontalOptions="Center">
+                        <Image Source="user_image.png" WidthRequest="54" HeightRequest="54"/>
+                        <Ellipse WidthRequest="18" HeightRequest="18" Fill="Green"
+                             Stroke="Black" StrokeThickness="6" HorizontalOptions="End"
+                             VerticalOptions="End"/>
+                    </Grid>
+
+                    <StackLayout Margin="10,5,0,0" HorizontalOptions="Start">
+                        <Label Text="Black Widow" FontSize="15" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+
+                        <Label Text="aaaaaaaaaaaaaa -  Mar 27" FontSize="12" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Margin="0,10,0,0">
+                    <Grid WidthRequest="54" HeightRequest="54" HorizontalOptions="Center">
+                        <Image Source="user_image.png" WidthRequest="54" HeightRequest="54"/>
+                        <Ellipse WidthRequest="18" HeightRequest="18" Fill="Green"
+                             Stroke="Black" StrokeThickness="6" HorizontalOptions="End"
+                             VerticalOptions="End"/>
+                    </Grid>
+
+                    <StackLayout Margin="10,5,0,0" HorizontalOptions="Start">
+                        <Label Text="Loki" FontSize="15" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+
+                        <Label Text="aaaaaaaaaaaaaa -  Mar 27" FontSize="12" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+
+                    </StackLayout>
+                </StackLayout>
+
+            </StackLayout>
+
+        </ScrollView>    
+            
+    </Grid>
+
+
+</ContentPage>
