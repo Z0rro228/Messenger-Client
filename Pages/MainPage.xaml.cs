@@ -79,9 +79,7 @@ public partial class MainPage : ContentPage
     }
     async void OnLogInButtonClicked(object sender, EventArgs e)
     {
-        string username = ((Entry)RegistrationPassword).Text;
-        string password = ((Entry)RegistrationPassword).Text;
-        var loginModel = new LoginModel(username, password);
+        
         await Navigation.PushAsync(new ChatsPage());
     }
 }

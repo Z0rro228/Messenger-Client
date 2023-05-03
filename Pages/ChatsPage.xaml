@@ -5,19 +5,37 @@
              Title="Chats">
 
     <Grid
-          RowDefinitions="50,"
+          RowDefinitions="50,.75*"
           ColumnDefinitions=".25*,.75*"
           Padding="5"
           RowSpacing="10"
           ColumnSpacing="10"
         BackgroundColor="White">
+        <StackLayout 
+            Grid.Column="0"
+            Grid.Row="0"
+            Orientation="Horizontal">
+            <Grid WidthRequest="54" HeightRequest="54" HorizontalOptions="Center">
+                <ImageButton Source="user_image.png" WidthRequest="64" HeightRequest="64"
+                             x:Name="ProfileButton"
+                             Clicked="OnProfileButtonClicked"/>
+            </Grid>
+
+            <StackLayout Margin="10,5,0,0" HorizontalOptions="Start">
+                <Label Text="My profile" FontSize="22" 
+                                HorizontalTextAlignment="Start" HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+            </StackLayout>
+        </StackLayout>
         <ScrollView
             Grid.Column="0"
             Grid.Row="1">
             <StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Grid WidthRequest="54" HeightRequest="54" HorizontalOptions="Center">
-                        <Image Source="user_image.png" WidthRequest="54" HeightRequest="54"/>
+                        <ImageButton Source="user_image.png" WidthRequest="54" HeightRequest="54"
+                                     x:Name="CheckButton"
+                             Clicked="OnCheckButtonClicked"/>
                         <Ellipse WidthRequest="18" HeightRequest="18" Fill="Green"
                              Stroke="Black" StrokeThickness="6" HorizontalOptions="End"
                              VerticalOptions="End"/>
@@ -224,8 +242,33 @@
 
             </StackLayout>
 
-        </ScrollView>    
+        </ScrollView>
+
+        <Label 
+            Grid.Column="1"
+            Grid.Row="1"
+            Text=" "
+               x:Name="qwerty"/>
+        <Grid 
+            Grid.Column="1"
+            Grid.Row="1"
+            RowDefinitions="50,.80*,50"
+            IsVisible="False"
+            x:Name ="ChatThanos"
+            >
             
+            <Border
+                Grid.Row="0"
+                Stroke="Blue"
+                StrokeShape="RoundRectangle 20,20,20,20"/>
+            <Label
+                Grid.Row="0"
+                Text="     Thanos"/>
+            <Entry
+                Grid.Row="2"
+                />
+
+        </Grid>
     </Grid>
 
 
