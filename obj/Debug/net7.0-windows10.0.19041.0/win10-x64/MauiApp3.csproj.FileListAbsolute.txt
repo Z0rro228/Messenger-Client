@@ -649,3 +649,5 @@ C:\Users\USER\Desktop\PROJECT\MauiApp3\obj\Debug\net7.0-windows10.0.19041.0\win1
 C:\Users\USER\Desktop\PROJECT\MauiApp3\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\resizetizer\r\eye_closed.scale-100.png
 C:\Users\USER\Desktop\PROJECT\MauiApp3\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\resizetizer\r\eye_open.scale-100.png
 C:\Users\USER\Desktop\PROJECT\MauiApp3\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\resizetizer\r\user_image.scale-100.png
+C:\Users\USER\Desktop\PROJECT\MauiApp3\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\resizetizer\r\image_send.scale-100.png
+C:\Users\USER\Desktop\PROJECT\MauiApp3\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\resizetizer\r\send_message.scale-100.png
