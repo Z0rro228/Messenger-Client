@@ -263,7 +263,9 @@
                 StrokeShape="RoundRectangle 20,20,20,20"/>
             <Label
                 Grid.Row="0"
-                Text="     Thanos"/>
+                WidthRequest="750"
+                FontSize="18"
+                Text="Thanos"/>
             <Grid
                 ColumnDefinitions=".80*, 50, 50"
                 Grid.Row="2">
