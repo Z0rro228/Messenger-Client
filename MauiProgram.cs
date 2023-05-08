@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace MauiApp3;
+namespace MessengerApp;
 
 public static class MauiProgram
 {

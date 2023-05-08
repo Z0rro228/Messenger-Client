@@ -1,4 +1,4 @@
-﻿namespace MauiApp3;
+﻿namespace MessengerApp;
 
 public partial class AppShell : Shell
 {
