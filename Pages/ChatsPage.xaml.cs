@@ -6,10 +6,10 @@ public partial class ChatsPage : ContentPage
 	{
 		InitializeComponent();
 	}
-	void OnProfileButtonClicked(object s , EventArgs e)
+	async void OnProfileButtonClicked(object s , EventArgs e)
 	{
-		qwerty.Text = "Profile CLicked";
-	}
+        await Navigation.PushAsync(new ProfilePage());
+    }
     void OnCheckButtonClicked(object s, EventArgs e)
 	{
 		ChatThanos.IsVisible = true;

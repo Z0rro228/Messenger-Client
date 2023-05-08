@@ -13,7 +13,7 @@
         <Label Grid.Row="0"
                Grid.Column ="1"
                HorizontalOptions="Start"
-               Text="Username"
+               Text="Email"
                FontSize="20"/>
         <Entry Placeholder="Enter email"
                BackgroundColor="White"

@@ -264,7 +264,7 @@
             <Label
                 Grid.Row="0"
                 WidthRequest="750"
-                FontSize="18"
+                FontSize="14"
                 Text="Thanos"/>
             <Grid
                 ColumnDefinitions=".80*, 50, 50"
