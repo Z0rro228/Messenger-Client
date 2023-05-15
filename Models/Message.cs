@@ -1,3 +1,5 @@
+using static System.Net.Mime.MediaTypeNames;
+
 namespace MessengerApp.Models;
 public class Message
 {
@@ -8,4 +10,8 @@ public class Message
     public string? FromUserId{get; set;}
     public string? FromUserName{get; set;}
     //TODO:public string FromUserAvatar{get; set;}
+    public Message(string text)
+    {
+        Content = text;
+    }
 }

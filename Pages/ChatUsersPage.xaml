@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MessengerApp.Pages.ChatUsersPage"
+             Title="ChatUsersPage"
+                 xmlns:local="clr-namespace:MessengerApp.ViewModels">
+    <ContentPage.BindingContext>
+        <local:ChatUsersViewModel/>
+    </ContentPage.BindingContext>
+    <Grid RowDefinitions=".1*,.9*"
+          ColumnDefinitions=".4*,.6*">
+        <Border
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
+                Stroke="Blue"
+                StrokeShape="RoundRectangle 20,20,20,20"/>
+        <Label
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
+                FontSize="20"
+                Text="Chat"
+                    HorizontalOptions="Center"
+                    FontAttributes="Bold"/>
+        <Image Grid.Row="1" Grid.Column="0" Source="User_image.png"
+               HeightRequest="300" WidthRequest="300" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <Line Grid.Row="1" Grid.Column="1"
+            X1="0"
+      Y1="0"
+      X2="0"
+      Y2="5000"
+      Stroke="Gray" />
+        <CollectionView Grid.Row="1" Grid.Column="1" Margin="5,5,5,5" ItemsSource="{Binding ChatUsers}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <ScrollView Padding="2">
+                        <Frame BorderColor="Gray"
+                                       CornerRadius="5"
+                                        Padding="4">
+                            <Grid Padding="1"
+                                        RowDefinitions="Auto,Auto"
+                                        ColumnDefinitions="Auto,Auto">
+                                <Image Grid.RowSpan="2"
+                                            Source="user_image.png"
+                                            HeightRequest="30"
+                                           WidthRequest="30" />
+                                <Label Grid.Column="1"
+                                            Text="{Binding UserName}"
+                                          FontAttributes="Bold"/>
+                            </Grid>
+                        </Frame>
+                    </ScrollView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
