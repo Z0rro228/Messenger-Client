@@ -57,7 +57,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.5" />
+		<PackageReference Include="microsoft.extensions.configuration.json" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="newtonsoft.json" Version="13.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
