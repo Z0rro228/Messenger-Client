@@ -1,3 +1,5 @@
+using System.Xml.Linq;
+
 namespace MessengerApp.Models;
 public class Chat
 {
@@ -7,5 +9,9 @@ public class Chat
     public bool IsGroup{get; set;}
     public string? Avatar{get; set;}
     public string? AdminId{get; set;}
+    public Chat(string title)
+    {
+        Title = title;
+    }
 
 }
