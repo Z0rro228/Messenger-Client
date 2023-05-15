@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MessengerApp.ChatsPage"
              Title="Chats"
+             
     xmlns:local="clr-namespace:MessengerApp.ViewModels">
 
     <ContentPage.BindingContext>
@@ -59,7 +60,7 @@
                        X1="0"
       Y1="20"
       X2="0"
-      Y2="780"
+      Y2="700"
       Stroke="Blue"/>
         <Grid Grid.Row="0" Grid.Column="1"  ColumnDefinitions=".75*, .25*" x:Name="HeaderThanos" IsVisible="False">
             <Border

@@ -3,7 +3,7 @@ using MessengerApp.ViewModels;
 namespace MessengerApp;
 
 public partial class ChatsPage : ContentPage
-{ 
+{
     public ChatsPage()
     {
         InitializeComponent();
@@ -12,11 +12,11 @@ public partial class ChatsPage : ContentPage
         this.MinimumWidthRequest = 700;
     }
 
-	async void OnProfileButtonClicked(object s , EventArgs e)
-	{
+    async void OnProfileButtonClicked(object s, EventArgs e)
+    {
         await Navigation.PushAsync(new ProfilePage());
     }
-   
+
     void OnCheckButtonClicked(object s, EventArgs e)
     {
         ChatThanos.IsVisible = true;
@@ -27,4 +27,8 @@ public partial class ChatsPage : ContentPage
         await Navigation.PushAsync(new ChatUsersPage());
     }
 
+    protected override bool OnBackButtonPressed()
+    {
+        return true;
+    }
 }
