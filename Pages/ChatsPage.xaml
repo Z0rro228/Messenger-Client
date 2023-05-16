@@ -10,7 +10,7 @@
         <local:ChatViewModel/>
     </ContentPage.BindingContext>
     <Grid
-          RowDefinitions=".1*,.17*,.68*"
+          RowDefinitions=".13*,.16*,.66*"
           ColumnDefinitions=".25*,.75*"
           Padding="5"
           RowSpacing="10"
@@ -27,10 +27,26 @@
 
 
             <StackLayout Margin="10,5,0,0" HorizontalOptions="Start">
-                <Label Text="My profile" FontSize="22" 
+                <Label Text="My profile " FontSize="22" 
                                 HorizontalTextAlignment="Start" HorizontalOptions="Start"
                                 VerticalOptions="Center"/>
             </StackLayout>
+            <Grid 
+                Margin="2,2" WidthRequest="150" RowDefinitions="50,50">
+            <Button BackgroundColor="White"
+                    TextColor="Red"
+                    Text="Leave"
+                    CornerRadius="0"
+                    HeightRequest="20"/>
+                <Button 
+                    Grid.Row="1"
+                    BackgroundColor="White"
+                    TextColor="Blue"
+                    Text="Change Avatar"
+                    CornerRadius="0"
+                    HeightRequest="20"/>
+            </Grid>
+                
         </StackLayout>
 
 
