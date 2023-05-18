@@ -80,6 +80,12 @@ public class MessagesService : IMessagesService
         {
             result.StatusMessage = ex.Message;
         }
+        // IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers;
+        Console.WriteLine(httpClient.DefaultRequestHeaders.AsEnumerable().Count());
+        // foreach(var i in headers)
+        // {
+        //     Console.WriteLine(i.Key);
+        // }
         return result;
     }
     public async Task<BaseResponse> UploadFileAsync(MultipartFormDataContent file) //TODO

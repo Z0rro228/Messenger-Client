@@ -7,6 +7,7 @@ public class ServiceProvider: IServiceProvider //TODO: ASK FOR DISPOSABLE
     private IAuthService? _authService;
     private IMessagesService? _messagesService;
     private IUserService? _userService;
+    private IChatHubService? _hubService;
     public IChatService ChatService{
         get
         {
@@ -63,6 +64,21 @@ public class ServiceProvider: IServiceProvider //TODO: ASK FOR DISPOSABLE
                 _userService = new UserService(_httpClient, _serverRootUrl);
             }
             return _userService;
+        }
+    }
+    public IChatHubService ChatHubService
+    {
+        get
+        {
+            if(_httpClient == null)
+            {
+                _httpClient = new HttpClient();
+            }
+            if(_hubService == null)
+            {
+                _hubService = new ChatHubService(_httpClient, _serverRootUrl);
+            }
+            return _hubService;
         }
     }
 }

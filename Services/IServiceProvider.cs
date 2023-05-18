@@ -5,4 +5,5 @@ interface IServiceProvider
     IChatService ChatService{get;}
     IMessagesService MessagesService{get;}
     IUserService UserService{get;}
+    IChatHubService ChatHubService{get;}
 }
