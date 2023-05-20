@@ -1,15 +1,19 @@
 ﻿using MessengerApp.Services;
 using MessengerApp.Services.Responses;
+using System.Windows.Input;
+
 namespace MessengerApp;
-public partial class MainPage : ContentPage
+public partial class LoginPage : ContentPage
 {
     string user_name = "";
     string pass_word = "";
-    //private IInternetProvider internetProvider;
-    public MainPage()
+    public InternetProvider internet_Provider;
+    public BaseResponse responce;
+    public ICommand LoginCommand { get; set; }
+    public LoginPage()
     {
         InitializeComponent();
-        //this.internetProvider = internetProvider;
+        internet_Provider = new InternetProvider();
     }
     async void OnRegisterButtonClicked(object sender, EventArgs e)
     {
@@ -28,10 +32,10 @@ public partial class MainPage : ContentPage
             RegistrationPassword.IsPassword = true;
         }
     }
-    async void OnLogInButtonClicked(object sender, EventArgs e)
+    async void OnLogInButtonClicked(object sender, EventArgs e, InternetProvider internet_Provider)
     {
-       // var response = await authService.LoginAsync(User_name, Pass_word);
-  //      if (StatusCode == 200)
+        var response = await internet_Provider.AuthService.LoginAsync(User_name, Pass_word);
+        if (responce.StatusCode == 200)
         {
             await Navigation.PushAsync(new ChatsPage());
         }
