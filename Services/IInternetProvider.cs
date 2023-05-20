@@ -1,5 +1,5 @@
 namespace MessengerApp.Services;
-interface IServiceProvider
+public interface IInternetProvider
 {
     IAuthService AuthService{get;}
     IChatService ChatService{get;}

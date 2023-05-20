@@ -26,7 +26,7 @@ public class ChatHubService : IChatHubService //TODO: TEST FOR IDISPOSABLE
             // options.Cookies = httpClient
         })
         .Build();
-        // hubConnection.
+        
         hubConnection.On<Chat>("OnJoinChat", chat => {
             OnJoinChat?.Invoke(chat);
         });

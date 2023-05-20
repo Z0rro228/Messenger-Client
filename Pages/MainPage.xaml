@@ -13,10 +13,11 @@
         <Label Grid.Row="0"
                Grid.Column ="1"
                HorizontalOptions="Start"
-               Text="Email"
+               Text="Username"
                FontSize="20"/>
-        <Entry Placeholder="Enter email"
-               BackgroundColor="White"
+        <Entry Placeholder="Enter username"
+               BackgroundColor="White" 
+               Text="{Binding User_name}"
                Grid.Row="1"
                Grid.Column ="1"/>
         <Label Grid.Row="2"
@@ -27,6 +28,7 @@
         <Entry Placeholder="Enter password"
                IsPassword="True"
                 BackgroundColor="White"
+               Text="{Binding Pass_word}"
                x:Name="RegistrationPassword"
                Grid.Row="3"
                Grid.Column ="1"/>

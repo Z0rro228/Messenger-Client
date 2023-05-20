@@ -14,4 +14,5 @@ public class Message
     {
         Content = text;
     }
+    //public string? AttachmentUri { get; set; }
 }

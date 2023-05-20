@@ -1,5 +1,5 @@
 namespace MessengerApp.Services;
-public class ServiceProvider: IServiceProvider //TODO: ASK FOR DISPOSABLE
+public class InternetProvider: IInternetProvider //TODO: ASK FOR DISPOSABLE
 {
     private string _serverRootUrl = "http://localhost:5296";
     private HttpClient? _httpClient;

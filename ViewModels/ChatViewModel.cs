@@ -9,6 +9,8 @@
     using System.Collections.ObjectModel;
     using System.Xml.Linq;
     using MessengerApp.Models;
+using MessengerApp.Services;
+using MessengerApp.Services.Responses;
 namespace MessengerApp.ViewModels
 {
         public class ChatViewModel : INotifyPropertyChanged
@@ -23,6 +25,8 @@ namespace MessengerApp.ViewModels
 
             public ChatViewModel()
             {
+                
+            
                 // устанавливаем команду добавления
                 AddCommand = new Command(() =>
                 {
@@ -66,7 +70,8 @@ namespace MessengerApp.ViewModels
                 }
             }
             public void OnPropertyChanged([CallerMemberName] string prop = "")
-            {
+            { 
+
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
             }
         }
