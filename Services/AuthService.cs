@@ -3,6 +3,8 @@ using MessengerApp.Models;
 using Newtonsoft.Json;
 using System.Text;
 using MessengerApp.Services.Responses;
+using System.Diagnostics;
+
 namespace MessengerApp.Services;
 
 public class AuthService: IAuthService

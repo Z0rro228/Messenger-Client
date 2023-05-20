@@ -2,9 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MessengerApp.LoginPage"
-             Title="Authorization">
+             Title="Authorization"
+             xmlns:viewModel="clr-namespace:MessengerApp.ViewModels">
+    <ContentPage.BindingContext>
+        <viewModel:LoginViewModel/>
+    </ContentPage.BindingContext>
     <Grid
-        RowDefinitions="30, 50,30,50,20, 50, 50"
+        RowDefinitions="30, 50,30,50,20, 50, 50, 50"
           ColumnDefinitions=".25*,.5*,.08*, .17*"
           Padding="20"
           RowSpacing="10"
@@ -49,12 +53,17 @@
         
         <Button Text="Log in"
                 x:Name="LogInButton"
-                Clicked="OnLogInButtonClicked"
                 BackgroundColor="Blue"
                 TextColor="White"
-                BorderColor="SkyBlue"    
+                BorderColor="SkyBlue"
+                Command="{Binding LoginCommand}"
                  Grid.Row="5"
                Grid.Column ="1"/>
+        <Label 
+            Grid.Row="7" 
+            x:Name ="StatusMessage"
+            Text="{Binding ErrorMessage}"
+            Grid.Column="1"/>
     </Grid>
 
 </ContentPage>
