@@ -6,4 +6,8 @@ public partial class ChatUsersPage : ContentPage
 	{
 		InitializeComponent();
 	}
+    async void OnBackToChatButtonClicked(object sender, EventArgs e)
+    {
+        await Navigation.PopModalAsync();
+    }
 }

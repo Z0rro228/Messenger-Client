@@ -24,11 +24,6 @@ public partial class ChatsPage : ContentPage
     }
     async void OnChatUsersButtonClicked(object s, EventArgs e)
     {
-        await Navigation.PushAsync(new ChatUsersPage());
-    }
-
-    protected override bool OnBackButtonPressed()
-    {
-        return true;
+        await Navigation.PushModalAsync(new ChatUsersPage());
     }
 }

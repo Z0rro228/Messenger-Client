@@ -7,7 +7,7 @@
     <ContentPage.BindingContext>
         <local:ChatUsersViewModel/>
     </ContentPage.BindingContext>
-    <Grid RowDefinitions=".1*,.9*"
+    <Grid RowDefinitions=".1*,.75*,.15*"
           ColumnDefinitions=".4*,.6*">
         <Border
                 Grid.Row="0"
@@ -22,14 +22,14 @@
                     HorizontalOptions="Center"
                     FontAttributes="Bold"/>
         <Image Grid.Row="1" Grid.Column="0" Source="User_image.png"
-               HeightRequest="300" WidthRequest="300" HorizontalOptions="Center" VerticalOptions="Center"/>
+               HeightRequest="200" WidthRequest="200" HorizontalOptions="Center" VerticalOptions="Center"/>
         <Line Grid.Row="1" Grid.Column="1"
             X1="0"
       Y1="0"
       X2="0"
       Y2="5000"
       Stroke="Gray" />
-        <CollectionView Grid.Row="1" Grid.Column="1" Margin="5,5,5,5" ItemsSource="{Binding ChatUsers}">
+        <CollectionView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="5,5,5,5" ItemsSource="{Binding ChatUsers}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <ScrollView Padding="2">
@@ -52,5 +52,15 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <Button Text="Go back"
+                BorderColor="White"
+                BackgroundColor="White"
+                TextColor="Blue"
+                x:Name="BackToChatButton"
+                Clicked="OnBackToChatButtonClicked"
+                HeightRequest="50"
+                VerticalOptions="Start"
+                 Grid.Row="2"
+               Grid.Column ="0"/>
     </Grid>
 </ContentPage>

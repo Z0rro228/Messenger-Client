@@ -2,14 +2,14 @@
 using MessengerApp.Services.Responses;
 using System.Diagnostics;
 using System.Windows.Input;
+using System.Threading;
 
 namespace MessengerApp;
 public partial class LoginPage : ContentPage
-{
+{ 
     public LoginPage()
     {
         InitializeComponent();
-        
     }
     async void OnRegisterButtonClicked(object sender, EventArgs e)
     {

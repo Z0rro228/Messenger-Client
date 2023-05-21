@@ -60,7 +60,7 @@
                        X1="0"
       Y1="20"
       X2="0"
-      Y2="700"
+      Y2="750"
       Stroke="Blue"/>
         <Grid Grid.Row="0" Grid.Column="1"  ColumnDefinitions=".75*, .25*" x:Name="HeaderThanos" IsVisible="False">
             <Border
