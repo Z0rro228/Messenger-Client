@@ -50,7 +50,7 @@
                Grid.Row="6"
                HorizontalOptions="Start"
                Grid.Column ="1"/>
-        
+
         <Button Text="Log in"
                 x:Name="LogInButton"
                 BackgroundColor="Blue"
@@ -59,11 +59,6 @@
                 Command="{Binding LoginCommand}"
                  Grid.Row="5"
                Grid.Column ="1"/>
-        <Label 
-            Grid.Row="7" 
-            x:Name ="StatusMessage"
-            Text="{Binding ErrorMessage}"
-            Grid.Column="1"/>
     </Grid>
 
 </ContentPage>

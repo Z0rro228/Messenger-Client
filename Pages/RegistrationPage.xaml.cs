@@ -9,11 +9,6 @@ public partial class RegistrationPage : ContentPage
         InitializeComponent();
 
     }
-    async void OnAddUserButtonClicked(object sender, EventArgs e)
-    {
-        await Navigation.PopAsync();
-        string text = ((Entry)PasswordEntry).Text;
-    }
     async void OnBackToAuthorizationButtonClicked(object sender, EventArgs e)
     {
         await Navigation.PopAsync();

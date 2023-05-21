@@ -2,7 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MessengerApp.RegistrationPage"
-             Title="Registration">
+             Title="Registration"     
+             xmlns:viewModel="clr-namespace:MessengerApp.ViewModels">
+    <ContentPage.BindingContext>
+        <viewModel:RegistrationViewModel/>
+    </ContentPage.BindingContext>
     <Grid
         RowDefinitions="30, 50,30,50,30,50,50,50,50"
           ColumnDefinitions=".25*,.5*,.08*,.07*,.1* "
@@ -11,13 +15,14 @@
           ColumnSpacing="10">
         <Label Grid.Row="0"
                Grid.Column ="1"
-               Text="Name"
+               Text="Username"
                x:Name="Lol"
                FontSize="20"
                HorizontalOptions="Start" />
-        <Entry Placeholder="Enter name"
+        <Entry Placeholder="Enter username"
                BackgroundColor="White"
                Grid.Row="1"
+               Text="{Binding Username}" 
                Grid.Column ="1"/>
         <Label Grid.Row="2"
                Grid.Column ="1"
@@ -27,6 +32,7 @@
         <Entry Placeholder="Enter email"
                BackgroundColor="White"
                Grid.Row="3"
+               Text="{Binding _Email}"
                Grid.Column ="1"/>
         <Label Grid.Row="4"
                Grid.Column ="1"
@@ -38,6 +44,7 @@
                IsPassword="True"
                x:Name="PasswordEntry"
                 BackgroundColor="White"
+               Text="{Binding Password}"
                Grid.Row="5"
                Grid.Column ="1"/>
         <ImageButton Source="eye_open.png"
@@ -48,12 +55,13 @@
         <Entry Placeholder="Confirm password"
                IsPassword="True"
                BackgroundColor="White"
+               Text="{Binding RepeatPassword}"
                Grid.Row="6"
                Grid.Column ="1"/>
         <Button Text="Add new user"
                 BackgroundColor="Blue"
                  x:Name="AddUserButton"
-                Clicked="OnAddUserButtonClicked"
+                Command="{Binding RegisterCommand}"
                  Grid.Row="7"
                Grid.Column ="1"/>
         <Button Text="Go back"
