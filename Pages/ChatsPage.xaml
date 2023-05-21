@@ -26,10 +26,19 @@
                          Clicked="OnProfileButtonClicked"/>
 
 
-            <StackLayout Margin="10,5,0,0" HorizontalOptions="Start">
+            <StackLayout Margin="10,5,0,0" HorizontalOptions="Fill">
                 <Label Text="My profile" FontSize="22" 
                                 HorizontalTextAlignment="Start" HorizontalOptions="Start"
                                 VerticalOptions="Center"/>
+                <HorizontalStackLayout>
+                    <Button HorizontalOptions="End" VerticalOptions="End" TextColor="Red"
+                        Text="Leave"
+                        BackgroundColor="Yellow" WidthRequest="140" HeightRequest="20"
+                            Command="{Binding LogoutCommand}"/>
+                    <Button HorizontalOptions="End" VerticalOptions="End" TextColor="Red"
+                        Text="Change avatar"
+                        BackgroundColor="Yellow" WidthRequest="140" HeightRequest="20"/>
+            </HorizontalStackLayout>
             </StackLayout>
         </StackLayout>
 

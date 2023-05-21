@@ -1,16 +1,17 @@
-﻿   using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.ComponentModel;
-    using System.Runtime.CompilerServices;
-    using System.Windows.Input;
-    using System.Collections.ObjectModel;
-    using System.Xml.Linq;
-    using MessengerApp.Models;
+﻿using Microsoft.Maui.Controls;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using MessengerApp.Services;
 using MessengerApp.Services.Responses;
+using MessengerApp.Models;
 namespace MessengerApp.ViewModels
 {
         public class ChatViewModel : INotifyPropertyChanged
@@ -20,15 +21,16 @@ namespace MessengerApp.ViewModels
             public event PropertyChangedEventHandler PropertyChanged;
             public ICommand AddCommand { get; set; }
             public ICommand AddChatCommand { get; set; }
-            public ObservableCollection<Message> Messages { get; } = new();
+            public ICommand LogoutCommand { get; set; }
+        public ObservableCollection<Message> Messages { get; } = new();
             public ObservableCollection<Chat> Chats { get; } = new();
-
-            public ChatViewModel()
-            {
-                
-            
-                // устанавливаем команду добавления
-                AddCommand = new Command(() =>
+            public InternetProvider internet_Provider;
+        public ChatViewModel()
+        {
+            Chats = new ObservableCollection<Chat>();
+            internet_Provider = new InternetProvider();
+            // устанавливаем команду добавления
+            AddCommand = new Command(() =>
                 {
                     if (Content != "")
                     {
@@ -36,16 +38,26 @@ namespace MessengerApp.ViewModels
                     }
                     Content = "";
                 });
-                AddChatCommand = new Command(() =>
+            LogoutCommand = new Command(() =>
+            {
+                Logout().GetAwaiter();
+            });
+            AddChatCommand = new Command(() =>
+            {
+                if (Title != "")
                 {
-                    if (Title != "")
-                    {
-                        Chats.Add(new Chat(Title));
-                    }
-                    Title = "";
-                });
-            }
-            public string Content
+                    Chats.Add(new Chat(Title));
+                }
+                Title = "";
+            });
+        }
+        async Task Logout()
+        {
+            var response = await internet_Provider.AuthService.LogoutAsync();
+            await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
+
+        }
+        public string Content
             {
                 get => content;
                 set
@@ -57,7 +69,7 @@ namespace MessengerApp.ViewModels
                     }
                 }
             }
-            public string Title
+        public string Title
             {
                 get => title;
                 set

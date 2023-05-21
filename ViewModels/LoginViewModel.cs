@@ -37,7 +37,7 @@ namespace MessengerApp.ViewModels
             if (response.StatusCode == 200)
             {
                 Debug.WriteLine("Все верно");
-                await Application.Current.MainPage.Navigation.PushModalAsync(new ChatsPage());
+                await Application.Current.MainPage.Navigation.PushAsync(new ChatsPage());
             }
             else
             {
