@@ -62,7 +62,7 @@ public class LoginPageViewModel : INotifyPropertyChanged
             Debug.WriteLine(response?.StatusMessage);
             await AppShell.Current.DisplayAlert("ChatApp", response?.StatusMessage, "OK");
             // await Shell.Current.GoToAsync(nameof(MainPage), true);
-            await Shell.Current.GoToAsync(nameof(ChatPage), true);
+            await Shell.Current.GoToAsync(nameof(ListChatPage), true);
         }
     }
     async Task NavigateToRegister()
