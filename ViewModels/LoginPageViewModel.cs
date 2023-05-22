@@ -53,7 +53,7 @@ public class LoginPageViewModel : INotifyPropertyChanged
         if (response.StatusCode == 200)
         {
             Debug.WriteLine("Good response of authorization");
-            await Shell.Current.GoToAsync(nameof(ChatPage), true);
+            await Shell.Current.GoToAsync(nameof(ListChatPage), true);
             // await Shell.Current.GoToAsync($"ListChatPage?userId={response.Id}");
             // await AppShell.Current.DisplayAlert("ChatApp", response.StatusMessage, "OK");
         }
