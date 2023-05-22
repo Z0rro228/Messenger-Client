@@ -1,6 +1,14 @@
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.AspNetCore.SignalR;
 using System.Net.Http.Headers;
 using MessengerApp.Models;
+using System.Net;
+using Microsoft.AspNetCore.SignalR.Protocol;
+using System.Web;
+using System.Runtime.CompilerServices;
+using System.Threading.Channels;
+using Microsoft.AspNetCore.Connections;
+using Microsoft.Extensions.Logging;
 namespace MessengerApp.Services;
 
 public class ChatHubService : IChatHubService //TODO: TEST FOR IDISPOSABLE
@@ -15,15 +23,14 @@ public class ChatHubService : IChatHubService //TODO: TEST FOR IDISPOSABLE
     public event Action<int>? OnDeleteChat;
     public event Action<string, int>? OnLeaveChat; //Handler(userId, chatId)
     public event Action<int, int>? OnSetLastReadMessage; //Handler(chatId, msgId)
-    public ChatHubService(HttpClient httpClient, string url)
+    public ChatHubService(HttpClient httpClient, string url, CookieContainer authCookies)
     {
         _serverRootUrl = url;
         this.httpClient = httpClient;
         hubConnection = new HubConnectionBuilder()
         .WithUrl($"{_serverRootUrl}/chat", options => 
         {
-            //TODO: Make normal authorization
-            // options.Cookies = httpClient
+            options.Cookies = authCookies;
         })
         .Build();
         
@@ -95,7 +102,10 @@ public class ChatHubService : IChatHubService //TODO: TEST FOR IDISPOSABLE
         await hubConnection.InvokeAsync("SetLastReadMessage", chatId, messageId);
     }
     private bool disposed = false;
- 
+    public bool Disposed 
+    {
+        get => disposed;
+    }
     public void Dispose()
     {
         Dispose(true);
@@ -111,7 +121,11 @@ public class ChatHubService : IChatHubService //TODO: TEST FOR IDISPOSABLE
         }
         disposed = true;
     }
- 
+    // public bool Authorized {get; private set;}
+    // public void AddCookie(Cookie cookie)
+    // {
+    //     Authorized = true;
+    // }
     ~ChatHubService()
     {
         Dispose (false);

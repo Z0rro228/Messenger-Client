@@ -6,4 +6,5 @@ public interface IInternetProvider
     IMessagesService MessagesService{get;}
     IUserService UserService{get;}
     IChatHubService ChatHubService{get;}
+    Task LogoutAsync();
 }

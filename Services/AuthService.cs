@@ -2,6 +2,7 @@ using System.Net.Http.Json;
 using MessengerApp.Models;
 using Newtonsoft.Json;
 using System.Text;
+using System.Net;
 using MessengerApp.Services.Responses;
 using System.Diagnostics;
 
@@ -10,10 +11,12 @@ namespace MessengerApp.Services;
 public class AuthService: IAuthService
 {
     private HttpClient httpClient;
-    public AuthService(HttpClient httpClient, string uri)
+    private CookieContainer _authCookies;
+    public AuthService(HttpClient httpClient, string uri, CookieContainer authCookies)
     {
         this.httpClient = httpClient;
         _serverRootUrl = uri;
+        _authCookies = authCookies;
     }
     private string _serverRootUrl;
     public async Task<BaseResponse> RegisterAsync(string email, string userName, string password) 
@@ -60,7 +63,15 @@ public class AuthService: IAuthService
             var response = await httpClient.SendAsync(httpRequestMessage);
             result.StatusCode = ((int)response.StatusCode);            
             result.StatusMessage = await response.Content.ReadAsStringAsync();
-
+            // CookieContainer cookies = new CookieContainer();
+            // получаем из запроса все элементы с заголовком Set-Cookie
+            foreach (var cookieHeader in response.Headers.GetValues("Set-Cookie"))
+                // добавляем заголовки кук в CookieContainer
+            {
+                _authCookies.SetCookies(new Uri(_serverRootUrl), cookieHeader);
+                // Console.WriteLine(cookieHeader);
+            }
+            // _authCookies = cookies;
         }
         catch(Exception ex)
         {
