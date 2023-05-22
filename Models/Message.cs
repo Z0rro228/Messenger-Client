@@ -9,10 +9,4 @@ public class Message
     public DateTime Timestamp { get; set;}
     public string? FromUserId{get; set;}
     public string? FromUserName{get; set;}
-    //TODO:public string FromUserAvatar{get; set;}
-    public Message(string text)
-    {
-        Content = text;
-    }
-    //public string? AttachmentUri { get; set; }
 }

@@ -7,4 +7,5 @@ public interface IMessagesService
     Task<ContentResponse<int>> GetLastReadMessageIdAsync(int chatId); 
     Task<ContentResponse<int>> GetNewestMessageIdAsync(int chatId);
     Task<BaseResponse> UploadFileAsync(MultipartFormDataContent file);
+    Task<ContentResponse<List<Message>>> GetAllMessages(int chatId); //bad practice
 }

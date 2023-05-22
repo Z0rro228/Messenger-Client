@@ -107,4 +107,26 @@ public class MessagesService : IMessagesService
         }
         return result;
     }
+    public async Task<ContentResponse<List<Message>>> GetAllMessages(int chatId)
+    {
+        var result = new ContentResponse<List<Message>>();
+        try
+        {
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, _serverRootUrl + $"/api/messages/getallmessages/chatid={chatId}");
+            var response = await httpClient.SendAsync(httpRequestMessage);
+            result.StatusCode = ((int)response.StatusCode);
+            if(result.StatusCode != 200 && result.StatusCode != 202)
+            {
+                result.StatusMessage = await response.Content.ReadAsStringAsync();
+            }
+            else
+                result.Content = await response.Content.ReadFromJsonAsync<List<Message>>();
+        }
+        catch(Exception ex)
+        {
+            result.StatusMessage = ex.Message;
+        }
+        return result;
+    }
+
 }

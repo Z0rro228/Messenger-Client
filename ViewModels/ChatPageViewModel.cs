@@ -104,7 +104,7 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     private async Task SendMessage(string content, string? attach = null)
     {
         throw new NotImplementedException();
-        await _internetProvider.ChatHubService.SendMessage(new Message(content));
+        await _internetProvider.ChatHubService.SendMessage(new Message(){Content = content});
     }
     private async Task SetLastReadMessage()
     {
