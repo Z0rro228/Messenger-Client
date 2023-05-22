@@ -1,29 +1,14 @@
-using Microsoft.Extensions.Logging;
+using MessengerApp.ViewModels;
 
-namespace MessengerApp;
+namespace MessengerApp.Pages;
 
 public partial class RegistrationPage : ContentPage
 {
-    public RegistrationPage()
-    {
-        InitializeComponent();
+	public RegistrationPage(RegistrationPageViewModel viewModel)
+	{
+		InitializeComponent();
 
-    }
-    async void OnBackToAuthorizationButtonClicked(object sender, EventArgs e)
-    {
-        await Navigation.PopAsync();
-    }
-    void OnShowAuthorizationPasswordButtonClicked(object sender, EventArgs e)
-    {
-        if (PasswordEntry.IsPassword)
-        {
-            ShowAuthorizationPasswordButton.Source = "eye_closed.png";
-            PasswordEntry.IsPassword = false;
-        }
-        else
-        {
-            ShowAuthorizationPasswordButton.Source = "eye_open.png";
-            PasswordEntry.IsPassword = true;
-        }
-    }
+		this.BindingContext = viewModel;
+	}
+    
 }

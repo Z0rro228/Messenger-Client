@@ -15,8 +15,8 @@
 		<ApplicationTitle>MessengerApp</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.MessengerApp</ApplicationId>
-		<ApplicationIdGuid>2e0795fc-f9fb-44d1-8ef6-46c5526a01e9</ApplicationIdGuid>
+		<ApplicationId>com.companyname.messengerapp</ApplicationId>
+		<ApplicationIdGuid>7281b3fc-66b2-4a11-803b-4bf2b849c126</ApplicationIdGuid>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -49,39 +49,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Images\eye_closed.png" />
-	  <None Remove="Resources\Images\eye_open.png" />
-	  <None Remove="Resources\Images\image_send.png" />
-	  <None Remove="Resources\Images\send_message.png" />
-	  <None Remove="Resources\Images\user_image.png" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.5" />
-		<PackageReference Include="microsoft.extensions.configuration.json" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
-		<PackageReference Include="newtonsoft.json" Version="13.0.3" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Update="Pages\LoginPage.xaml.cs">
-	    <DependentUpon>LoginPage.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="Pages\ChatsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Pages\ChatUsersPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Pages\RegistrationPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="ProfilePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
 </Project>
