@@ -15,22 +15,42 @@ namespace MessengerApp.ViewModels;
 public class ListChatPageViewModel : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
     private IInternetProvider _internetProvider;
-    private User _userProfile;
-    private string _userId;
+    private User? _userProfile;
+    private string _userId = null!;
     private ObservableCollection<Chat> _chats;
     public ListChatPageViewModel(IInternetProvider internetProvider)
     {
         _internetProvider = internetProvider;
-        //TODO
+        _chats = new ObservableCollection<Chat>();
+        OpenChatPageCommand = new Command<int>((param) =>
+        {
 
+            Task.Run(async () => 
+            {
+                IsProcessingNavigate = true;
+                await OpenChatPage(param);
+            }).GetAwaiter().OnCompleted(() => 
+                IsProcessingNavigate = false);
+        });
+        RefreshCommand = new Command(() => 
+        {
+            Task.Run(async () =>
+                {
+                    IsRefreshing = true;
+                    await Refresh();
+                }).GetAwaiter().OnCompleted(() =>
+                {
+                    IsRefreshing = false;
+                });
+        });
     }
-    async Task Refresh()
+    public async Task Refresh()
     {
         var responseOfProfile = await _internetProvider.UserService.GetUserInfoAsync(_userId);
         if(responseOfProfile.StatusCode == 200 || responseOfProfile.StatusCode == 202)
@@ -40,7 +60,9 @@ public class ListChatPageViewModel : INotifyPropertyChanged
         }
         else 
         {
-            //TODO
+            Debug.WriteLine(responseOfProfile.StatusMessage);
+            await AppShell.Current.DisplayAlert("ChatApp", responseOfProfile?.StatusMessage, "OK");
+            return;
         }
         var responseOfChats = await _internetProvider.ChatService.GetUsersChatsAsync();
         if(responseOfChats.StatusCode == 200 || responseOfChats.StatusCode == 202)
@@ -50,9 +72,26 @@ public class ListChatPageViewModel : INotifyPropertyChanged
         }
         else 
         {
-            //TODO
-        }
-        
+            Debug.WriteLine(responseOfChats?.StatusMessage);
+            await AppShell.Current.DisplayAlert("ChatApp", responseOfChats?.StatusMessage, "OK");
+            return;
+        } 
+    }
+    async Task OpenChatPage(int chatId)
+    {
+        await Shell.Current.GoToAsync($"ChatPage?chatId={chatId}");
+    }
+    private bool isRefreshing;
+    public bool IsRefreshing
+    {
+        get { return isRefreshing; }
+        set { isRefreshing = value; OnPropertyChanged(); }
+    }
+    private bool isProcessingNavigate;
+    public bool IsProcessingNavigate
+    {
+        get { return isProcessingNavigate; }
+        set { isProcessingNavigate = value; OnPropertyChanged(); }
     }
     public ICommand OpenChatPageCommand { get; set; }
     public ICommand RefreshCommand {get; set;}
