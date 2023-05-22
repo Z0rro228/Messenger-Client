@@ -84,6 +84,6 @@ public class RegistrationPageViewModel : INotifyPropertyChanged
         //     await Shell.Current.GoToAsync(nameof(MainPage), true);
         // }
         await AppShell.Current.DisplayAlert("ChatApp", response.StatusMessage, "OK");
-        await Shell.Current.GoToAsync("LoginPage");
+        // await Shell.Current.GoToAsync("LoginPage", true);
     }
 }
