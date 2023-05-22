@@ -10,6 +10,8 @@ using MessengerApp.Services.Responses;
 using MessengerApp;
 using System.Windows.Input;
 using System.Diagnostics;
+using MessengerApp.Pages;
+
 namespace MessengerApp.ViewModels;
 public class RegistrationPageViewModel : INotifyPropertyChanged
 {

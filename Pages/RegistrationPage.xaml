@@ -11,7 +11,8 @@
             <Label
                 FontSize="45"
                 HorizontalOptions="Center"
-                Text="ChatApp" />
+                Text="ChatApp" 
+                TextColor="White"/>
 
 
             <Frame
