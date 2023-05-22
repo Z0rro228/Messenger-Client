@@ -6,5 +6,110 @@
     xmlns:viewModel="clr-namespace:MessengerApp.ViewModels"
     Title="Chat"
     Background="#13232f">
-    
+    <RefreshView Margin="10" IsRefreshing="{Binding IsRefreshing}">
+        <Grid RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="55" />
+                <RowDefinition Height="90" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <StackLayout Orientation="Horizontal">
+                    <Image
+                        HeightRequest="32"
+                        Source="dotnet_bot.svg"
+                        VerticalOptions="Center"
+                        WidthRequest="32" />
+                    <Label
+                        Margin="10,0,0,0"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Text="You"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+                </StackLayout>
+                <StackLayout
+                    HorizontalOptions="End"
+                    Orientation="Horizontal"
+                    VerticalOptions="Center">
+
+                    <Button
+                        Margin="10,0,0,0"
+                        BackgroundColor="#152c39"
+                        CornerRadius="45"
+                        HeightRequest="50"
+                        WidthRequest="130"
+                        Text="Edit avatar"
+                        FontSize="18">
+                    </Button>
+                    <Button
+                        Margin="10,0,0,0"
+                        BackgroundColor="#152c39"
+                        CornerRadius="45"
+                        HeightRequest="50"
+                        WidthRequest="200"
+                        Text="Leave from account"
+                        FontSize="18">
+                    </Button>
+                </StackLayout>
+            </Grid>
+            <StackLayout Orientation="Horizontal" Grid.Row="1">
+                 <Entry
+                    Placeholder="Enter chat name"
+                    ReturnType="Go"
+                    TextColor="Black"
+                    WidthRequest="1300"/>
+                <Button
+                        Margin="10,0,0,0"
+                        BackgroundColor="#152c39"
+                        CornerRadius="45"
+                        HeightRequest="50"
+                        WidthRequest="110"
+                        Text="Add chat"
+                        HorizontalOptions="End"
+                        FontSize="18">
+                </Button>
+
+            </StackLayout>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="72" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid HeightRequest="54" WidthRequest="58">
+                    <CollectionView
+                    Grid.Column="1"
+                    Margin="10,0,0,0"
+                    ItemsSource="{Binding _chats}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                                <VerticalStackLayout>
+                                    <Grid HeightRequest="54" WidthRequest="58">
+                                    <Image
+                                        HeightRequest="54"
+                                        HorizontalOptions="Start"
+                                        Source="{Binding GroupImage}"
+                                        WidthRequest="54">
+                                    </Image>
+                                    </Grid>
+                                <Label
+                                    Margin="0,5,0,0"
+                                    FontSize="12"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding GroupName}"
+                                    HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </Grid>
+        </Grid>
+    </RefreshView>
 </ContentPage>
