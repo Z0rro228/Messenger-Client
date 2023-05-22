@@ -10,6 +10,7 @@ using MessengerApp.Services.Responses;
 using MessengerApp;
 using System.Windows.Input;
 using System.Diagnostics;
+using MessengerApp.Pages;
 namespace MessengerApp.ViewModels;
 public class LoginPageViewModel : INotifyPropertyChanged
 {
@@ -52,6 +53,7 @@ public class LoginPageViewModel : INotifyPropertyChanged
         if (response.StatusCode == 200)
         {
             Debug.WriteLine("Good response of authorization");
+            await Shell.Current.GoToAsync(nameof(ListChatPage), true);
             // await Shell.Current.GoToAsync($"ListChatPage?userId={response.Id}");
             // await AppShell.Current.DisplayAlert("ChatApp", response.StatusMessage, "OK");
         }
@@ -59,7 +61,8 @@ public class LoginPageViewModel : INotifyPropertyChanged
         {
             Debug.WriteLine(response?.StatusMessage);
             await AppShell.Current.DisplayAlert("ChatApp", response.StatusMessage, "OK");
-            await Shell.Current.GoToAsync(nameof(MainPage), true);
+            // await Shell.Current.GoToAsync(nameof(MainPage), true);
+            await Shell.Current.GoToAsync(nameof(ListChatPage), true);
         }
     }
     async Task NavigateToRegister()
