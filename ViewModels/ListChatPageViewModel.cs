@@ -8,21 +8,26 @@ using MessengerApp.Services;
 using MessengerApp.Services.Responses;
 using MessengerApp;
 using System.Windows.Input;
+using System.Web;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using MessengerApp.Models;
 namespace MessengerApp.ViewModels;
-public class ListChatPageViewModel : INotifyPropertyChanged
+public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
 {
     public event PropertyChangedEventHandler PropertyChanged;
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
-
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query == null || query.Count == 0) return;
+        _userId = HttpUtility.UrlDecode(query["userId"].ToString())!;            
+    }
     public IInternetProvider _internetProvider;
     public User? _userProfile;
-    public string? _userId = null;
+    public string _userId;
     public ObservableCollection<Chat> Qwerty { get; set; } = new();
     public ListChatPageViewModel(IInternetProvider internetProvider)
     {
@@ -53,7 +58,7 @@ public class ListChatPageViewModel : INotifyPropertyChanged
     public async Task Refresh()
     {
         var responseOfProfile = await _internetProvider.UserService.GetUserInfoAsync(_userId);
-        Debug.WriteLine("Все верно");
+        Debug.WriteLine("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ");
         if (responseOfProfile.StatusCode == 200 || responseOfProfile.StatusCode == 202)
         {
             if(responseOfProfile.Content != null)
@@ -66,12 +71,12 @@ public class ListChatPageViewModel : INotifyPropertyChanged
             return;
         }
         var responseOfChats = await _internetProvider.ChatService.GetUsersChatsAsync();
-        Debug.WriteLine("Все верно");
+        Debug.WriteLine("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ");
         if (responseOfChats.StatusCode == 200 || responseOfChats.StatusCode == 202)
         {
             if(responseOfChats.Content != null)
                 Qwerty = new ObservableCollection<Chat>(responseOfChats.Content);
-               Debug.WriteLine("Все верно");
+               Debug.WriteLine("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ");
         }
         else 
         {
