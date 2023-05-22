@@ -20,9 +20,9 @@ public class ListChatPageViewModel : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    private IInternetProvider _internetProvider;
-    private User? _userProfile;
-    private string _userId = null!;
+    public IInternetProvider _internetProvider;
+    public User? _userProfile;
+    public string? _userId = null;
     public ObservableCollection<Chat> Qwerty { get; set; } = new();
     public ListChatPageViewModel(IInternetProvider internetProvider)
     {
@@ -84,13 +84,13 @@ public class ListChatPageViewModel : INotifyPropertyChanged
     {
         await Shell.Current.GoToAsync($"ChatPage?chatId={chatId}");
     }
-    private bool isRefreshing;
+    public bool isRefreshing;
     public bool IsRefreshing
     {
         get { return isRefreshing; }
         set { isRefreshing = value; OnPropertyChanged(); }
     }
-    private bool isProcessingNavigate;
+    public bool isProcessingNavigate;
     public bool IsProcessingNavigate
     {
         get { return isProcessingNavigate; }
