@@ -40,18 +40,18 @@
                         BackgroundColor="#152c39"
                         CornerRadius="45"
                         HeightRequest="50"
-                        WidthRequest="130"
+                        WidthRequest="80"
                         Text="Edit avatar"
-                        FontSize="18">
+                        FontSize="10">
                     </Button>
                     <Button
                         Margin="10,0,0,0"
                         BackgroundColor="#152c39"
                         CornerRadius="45"
                         HeightRequest="50"
-                        WidthRequest="200"
+                        WidthRequest="130"
                         Text="Leave from account"
-                        FontSize="18">
+                        FontSize="10">
                     </Button>
                 </StackLayout>
             </Grid>
@@ -60,7 +60,7 @@
                     Placeholder="Enter chat name"
                     ReturnType="Go"
                     TextColor="Black"
-                    WidthRequest="1300"/>
+                    WidthRequest="400"/>
                 <Button
                         Margin="10,0,0,0"
                         BackgroundColor="#152c39"
@@ -83,7 +83,7 @@
                     <CollectionView
                     Grid.Column="1"
                     Margin="10,0,0,0"
-                    ItemsSource="{Binding _chats}">
+                    ItemsSource="{Binding Qwerty}">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
                     </CollectionView.ItemsLayout>
@@ -94,7 +94,7 @@
                                     <Image
                                         HeightRequest="54"
                                         HorizontalOptions="Start"
-                                        Source="{Binding GroupImage}"
+                                        Source="{Binding Avatar}"
                                         WidthRequest="54">
                                     </Image>
                                     </Grid>
@@ -102,7 +102,7 @@
                                     Margin="0,5,0,0"
                                     FontSize="12"
                                     HorizontalOptions="Center"
-                                    Text="{Binding GroupName}"
+                                    Text="{Binding Title}"
                                     HorizontalTextAlignment="Center" />
                             </VerticalStackLayout>
                         </DataTemplate>
