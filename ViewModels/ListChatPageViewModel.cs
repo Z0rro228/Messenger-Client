@@ -9,6 +9,8 @@ using MessengerApp.Services.Responses;
 using MessengerApp;
 using System.Windows.Input;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
+using MessengerApp.Models;
 namespace MessengerApp.ViewModels;
 public class ListChatPageViewModel : INotifyPropertyChanged
 {
@@ -19,9 +21,39 @@ public class ListChatPageViewModel : INotifyPropertyChanged
     }
 
     private IInternetProvider _internetProvider;
+    private User _userProfile;
+    private string _userId;
+    private ObservableCollection<Chat> _chats;
     public ListChatPageViewModel(IInternetProvider internetProvider)
     {
         _internetProvider = internetProvider;
         //TODO
+
     }
+    async Task Refresh()
+    {
+        var responseOfProfile = await _internetProvider.UserService.GetUserInfoAsync(_userId);
+        if(responseOfProfile.StatusCode == 200 || responseOfProfile.StatusCode == 202)
+        {
+            if(responseOfProfile.Content != null)
+                _userProfile = responseOfProfile.Content; 
+        }
+        else 
+        {
+            //TODO
+        }
+        var responseOfChats = await _internetProvider.ChatService.GetUsersChatsAsync();
+        if(responseOfChats.StatusCode == 200 || responseOfChats.StatusCode == 202)
+        {
+            if(responseOfChats.Content != null)
+                _chats = new ObservableCollection<Chat>(responseOfChats.Content); 
+        }
+        else 
+        {
+            //TODO
+        }
+        
+    }
+    public ICommand OpenChatPageCommand { get; set; }
+    public ICommand RefreshCommand {get; set;}
 }
