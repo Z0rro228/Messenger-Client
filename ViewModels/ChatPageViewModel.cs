@@ -10,15 +10,22 @@ using MessengerApp.Services.Responses;
 using MessengerApp;
 using System.Windows.Input;
 using System.Diagnostics;
+using System.Web;
 namespace MessengerApp.ViewModels;
-public class ChatPageViewModel : INotifyPropertyChanged
+public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
 {
     public event PropertyChangedEventHandler PropertyChanged;
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+    private int chatId;
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query == null || query.Count == 0) return;
 
+        chatId = int.Parse(HttpUtility.UrlDecode(query["chatId"].ToString()));
+    }
     private IInternetProvider _internetProvider;
     public ChatPageViewModel(IInternetProvider internetProvider)
     {
