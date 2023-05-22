@@ -10,6 +10,8 @@ using MessengerApp.Services.Responses;
 using MessengerApp;
 using System.Windows.Input;
 using System.Diagnostics;
+using MessengerApp.Pages;
+
 namespace MessengerApp.ViewModels;
 public class RegistrationPageViewModel : INotifyPropertyChanged
 {
@@ -84,6 +86,6 @@ public class RegistrationPageViewModel : INotifyPropertyChanged
         //     await Shell.Current.GoToAsync(nameof(MainPage), true);
         // }
         await AppShell.Current.DisplayAlert("ChatApp", response.StatusMessage, "OK");
-        await Shell.Current.GoToAsync("LoginPage");
+        await AppShell.Current.GoToAsync("LoginPage");
     }
 }

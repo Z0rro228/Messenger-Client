@@ -11,9 +11,6 @@ using MessengerApp;
 using System.Windows.Input;
 using System.Diagnostics;
 using System.Web;
-using MessengerApp.Models;
-using System.Collections.ObjectModel;
-
 namespace MessengerApp.ViewModels;
 public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
 {
@@ -24,10 +21,11 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     }
     private int chatId;
     public void ApplyQueryAttributes(IDictionary<string, object> query)
-        {
-            if (query == null || query.Count == 0) return;
-            chatId = int.Parse(HttpUtility.UrlDecode(query["chatId"].ToString()));            
-        }
+    {
+        if (query == null || query.Count == 0) return;
+
+        chatId = int.Parse(HttpUtility.UrlDecode(query["chatId"].ToString()));
+    }
     private IInternetProvider _internetProvider;
     private ObservableCollection<Message> _messages;
     public ChatPageViewModel(IInternetProvider internetProvider)

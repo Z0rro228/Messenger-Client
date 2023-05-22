@@ -6,5 +6,119 @@
     xmlns:viewModel="clr-namespace:MessengerApp.ViewModels"
     Title="Chat"
     Background="#13232f">
-    
+    <RefreshView Margin="10" IsRefreshing="{Binding IsRefreshing}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <StackLayout Orientation="Horizontal">
+                    <Image
+                        HeightRequest="32"
+                        Source="{Binding FriendInfo.AvatarSourceName}"
+                        VerticalOptions="Center"
+                        WidthRequest="32" />
+                    <Label
+                        Margin="10,0,0,0"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Text="{Binding FriendInfo.UserName}"
+                        VerticalOptions="Center" />
+                </StackLayout>
+                <StackLayout
+                    HorizontalOptions="End"
+                    Orientation="Horizontal"
+                    VerticalOptions="Center">
+                    <Button
+                        BackgroundColor="#152c39"
+                        CornerRadius="45"
+                        HeightRequest="50"
+                        WidthRequest="80">
+                    </Button>
+
+                    <Button
+                        Margin="10,0,0,0"
+                        BackgroundColor="#152c39"
+                        CornerRadius="45"
+                        HeightRequest="50"
+                        WidthRequest="80"
+                        Text="Edit"
+                        FontSize="18">
+                    </Button>
+                </StackLayout>
+            </Grid>
+
+            <CollectionView
+                Grid.Row="1"
+                Margin="0,10,0,10"
+                ItemsSource="{Binding Messages}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout>
+                            <VerticalStackLayout.HorizontalOptions>
+                                <MultiBinding Converter="{StaticResource FromUserIdToHorizontalOptionConverter}">
+                                    <Binding Path="FromUserId" />
+                                    <Binding Path="ToUserId" Source="{RelativeSource AncestorType={x:Type viewModel:ChatPageViewModel}}" />
+                                </MultiBinding>
+                            </VerticalStackLayout.HorizontalOptions>
+                            <Label
+                                Margin="5,0,5,0"
+                                FontSize="11"
+                                HorizontalOptions="{Binding HorizontalOptions, Source={RelativeSource AncestorType={x:Type VerticalStackLayout}}}"
+                                Text="{Binding SendDateTime, StringFormat='{0:HH:mm}'}" />
+
+                            <Frame Padding="10,6,10,6" CornerRadius="10">
+                                <Frame.BackgroundColor>
+                                    <MultiBinding Converter="{StaticResource FromUserIdToBackgroudColorConverter}">
+                                        <Binding Path="FromUserId" />
+                                        <Binding Path="ToUserId" Source="{RelativeSource AncestorType={x:Type viewModel:ChatPageViewModel}}" />
+                                    </MultiBinding>
+                                </Frame.BackgroundColor>
+                                <Label
+                                    FontSize="12"
+                                    Text="{Binding Content}"
+                                    TextColor="Black" />
+                            </Frame>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="82" />
+                </Grid.ColumnDefinitions>
+
+                <Frame
+                    Padding="10,0,10,0"
+                    BorderColor="Transparent"
+                    CornerRadius=" 20"
+                    HeightRequest=" 36">
+                    <Entry
+                        Placeholder="Aa"
+                        Text="{Binding Message}"
+                        TextColor="Black"
+                        VerticalOptions="Center" />
+                </Frame>
+
+                <Button
+                    Grid.Column="1"
+                    BackgroundColor="#152c39"
+                    Command="{Binding SendMessageCommand}"
+                    CornerRadius="45"
+                    HeightRequest="50"
+                    WidthRequest="82"
+                    Text="Send"
+                    FontSize="18">
+                </Button>
+            </Grid>
+        </Grid>
+    </RefreshView>
 </ContentPage>
