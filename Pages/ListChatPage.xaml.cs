@@ -1,4 +1,6 @@
 using MessengerApp.ViewModels;
+using System.Collections.ObjectModel;
+
 namespace MessengerApp.Pages;
 
 public partial class ListChatPage : ContentPage
@@ -13,4 +15,5 @@ public partial class ListChatPage : ContentPage
 	{
 		(this.BindingContext as ListChatPageViewModel).Refresh();
 	}
+    
 }
