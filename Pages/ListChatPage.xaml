@@ -7,7 +7,7 @@
     Title="Chat"
     Background="#13232f"
     NavigatedTo="ContentPage_NavigatedTo">
-    <RefreshView Margin="10" IsRefreshing="{Binding IsRefreshing}">
+    <RefreshView Margin="10" IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}">
         <Grid RowSpacing="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50" />
@@ -42,7 +42,7 @@
                         HeightRequest="50"
                         WidthRequest="80"
                         Text="Edit avatar"
-                        FontSize="10">
+                        FontSize="15">
                     </Button>
                     <Button
                         Margin="10,0,0,0"
@@ -51,11 +51,13 @@
                         HeightRequest="50"
                         WidthRequest="130"
                         Text="Leave from account"
-                        FontSize="10">
+                        FontSize="15">
                     </Button>
                 </StackLayout>
             </Grid>
             <StackLayout Orientation="Horizontal" Grid.Row="1">
+                <Label Text = "Is Group"/>
+                <CheckBox x:Name="checkBox" />
                 <Entry Placeholder="Enter name of new chat"
                     Text = "{Binding NewChatTitle}"/>
                 <Button
@@ -66,8 +68,9 @@
                         WidthRequest="110"
                         Text="Add chat"
                         Command="{Binding AddChatCommand}"
+                        CommandParameter="{Binding Source={x:Reference Name=checkBox}, Path=IsChecked}"
                         HorizontalOptions="End"
-                        FontSize="18">
+                        FontSize="15">
                 </Button>
             </StackLayout>
 
