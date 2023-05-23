@@ -67,7 +67,6 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     public async Task Refresh()
     {
         var responseOfProfile = await _internetProvider.UserService.GetUserInfoAsync(_userId);
-        Debug.WriteLine("��� �����");
         if (responseOfProfile.StatusCode == 200 || responseOfProfile.StatusCode == 202)
         {
             if(responseOfProfile.Content != null)
