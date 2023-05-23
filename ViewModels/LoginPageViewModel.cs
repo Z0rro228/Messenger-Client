@@ -29,7 +29,11 @@ public class LoginPageViewModel : INotifyPropertyChanged
         {
             if (IsProcessingLogin) return;
 
-            if (UserName.Trim() == "" || Password.Trim() == "") return;
+            if (UserName.Trim() == "" || Password.Trim() == "")
+            {
+                AppShell.Current.DisplayAlert("ChatApp", "Поля не могут быть пустыми", "OK");
+                return;
+            }
 
             IsProcessingLogin = true;
             Login().GetAwaiter().OnCompleted(() =>
@@ -39,7 +43,7 @@ public class LoginPageViewModel : INotifyPropertyChanged
         });
         NavigateToRegisterCommand = new Command(() => 
         {
-            if(isProcessingNavToReg) return;
+            if(IsProcessingNavToReg) return;
             NavigateToRegister().GetAwaiter().OnCompleted(() => 
             {
                 IsProcessingNavToReg = false;

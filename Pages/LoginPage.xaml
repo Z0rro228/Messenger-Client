@@ -11,6 +11,7 @@
             <Label
                 FontSize="45"
                 HorizontalOptions="Center"
+                TextColor="White"
                 Text="ChatApp" />
 
 
@@ -44,7 +45,9 @@
                 Text="Login"
                 TextColor="White" />
             <HorizontalStackLayout Margin="0,40,0,0" HorizontalOptions="Center">
-                <Label Text="Not a members?" />
+                <Label Text="Not a member?"
+                       VerticalOptions="Center"
+                       TextColor="White"/>
                 <Button
                     Margin="5,0,0,0"
                     Background="Transparent"

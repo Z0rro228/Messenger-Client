@@ -22,10 +22,10 @@ public static class MauiProgram
 			builder.Services.AddSingleton<MainPage>();
 			builder.Services.AddTransient<RegistrationPage>();
 			builder.Services.AddTransient<RegistrationPageViewModel>();
-			builder.Services.AddSingleton<ListChatPageViewModel>();
-			builder.Services.AddSingleton<ChatPageViewModel>();
-			builder.Services.AddSingleton<ListChatPage>();
-			builder.Services.AddSingleton<ChatPage>();
+			builder.Services.AddTransient<ListChatPageViewModel>();
+			builder.Services.AddTransient<ChatPageViewModel>();
+			builder.Services.AddTransient<ListChatPage>();
+			builder.Services.AddTransient<ChatPage>();
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif

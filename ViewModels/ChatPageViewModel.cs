@@ -17,84 +17,53 @@ namespace MessengerApp.ViewModels;
 public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
 {
     public event PropertyChangedEventHandler PropertyChanged;
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
     private int chatId;
-    private Chat? chatInfo;
+    private Chat chatInfo;
+    public Chat ChatInfo
+    {
+        get {return chatInfo;}
+        set {chatInfo = value; OnPropertyChanged();}
+    }
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
         if (query == null || query.Count == 0) return;
         chatId = int.Parse(HttpUtility.UrlDecode(query["chatId"].ToString()));            
     }
     private IInternetProvider _internetProvider;
-    private ObservableCollection<Message> _messages = new ObservableCollection<Message>();
-    private int lastReadMessageId;
-    private int currentMessageId;
-    private bool scrollingDown;
-    public int LastReadMessageId
+    private ObservableCollection<Message> messages = new ObservableCollection<Message>();
+    private string message;
+    public string Message
     {
-        get{return lastReadMessageId;}
-        set{
-            lastReadMessageId = value; 
-            OnPropertyChanged();
-            new Task(async () =>
-                {
-                    await SetLastReadMessage();
-                }).Start();        
-            }
+        get {return message;}
+        set {message = value; OnPropertyChanged();}
     }
-    public int CurentMessageId
+    public ObservableCollection<Message> Messages 
     {
-        get{return currentMessageId;}
-        set{
-            currentMessageId = value; 
-            if(currentMessageId > LastReadMessageId)
-                LastReadMessageId = currentMessageId;
-            OnPropertyChanged(); }
-    }
-    public bool ScrollingDown
-    {
-        get{return scrollingDown;}
-        set{
-            scrollingDown = value;
-            OnPropertyChanged();
-        }
+        get {return messages;}
+        set {messages = value; OnPropertyChanged();}
     }
     public ChatPageViewModel(IInternetProvider internetProvider)
     {
         _internetProvider = internetProvider;
-        SendMessageCommand = new Command<string>(async (param) => 
+        SendMessageCommand = new Command(async () => 
         {
-            await SendMessage(param);
+            await SendMessage(Message);
         });
         LoadMessagesCommand = new Command(async () => {
-            //TODO: TEST IT
-            await LoadMessages(currentMessageId);
+            await LoadMessages();
         });
         //TODO connetcing to hub
-
     }
-    private async Task LoadMessages(int fromId)
+    private async Task LoadMessages()
     {
-        var messagesResponse = await _internetProvider.MessagesService.GetMessagesRangeAsync(chatId, fromId, 
-                (scrollingDown) ? 30 : -30);
+        var messagesResponse = await _internetProvider.MessagesService.GetAllMessages(chatId);
         if(messagesResponse.StatusCode == 200 || messagesResponse.StatusCode == 202)
         {
-            if(ScrollingDown)
-                foreach(var m in messagesResponse.Content!)
-                {
-                    _messages.Add(m);
-                }
-            else 
-            {
-                messagesResponse.Content!.Reverse();
-                foreach(var m in messagesResponse.Content!)
-                {
-                    _messages.Insert(0, m);
-                }
-            }
+            Messages = new ObservableCollection<Message>(messagesResponse.Content!);
         }
         else
         {
@@ -103,18 +72,13 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     }
     private async Task SendMessage(string content, string? attach = null)
     {
-        throw new NotImplementedException();
-        await _internetProvider.ChatHubService.SendMessage(new Message(){Content = content});
-    }
-    private async Task SetLastReadMessage()
-    {
-        await _internetProvider.ChatHubService.SetLastReadMessage(chatId, LastReadMessageId);
-    }
+        // await _internetProvider.ChatHubService.SendMessage(new Message(){Content = content});
+        await AppShell.Current.DisplayAlert("ChatApp", content, "OK");
+    }    
     public ICommand SendMessageCommand {get; set;}
     public ICommand LoadMessagesCommand {get; set;}
     public async Task Initialize()
     {
-        ScrollingDown = true;
         var chatInfoResponse = await _internetProvider.ChatService.GetChatInfoAsync(chatId);
         if(chatInfoResponse.StatusCode == 200 || chatInfoResponse.StatusCode == 202)
         {
@@ -125,17 +89,6 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
             await AppShell.Current.DisplayAlert("ChatApp", chatInfoResponse?.StatusMessage, "OK");
             return;
         }
-        var lastMsgResponse = await _internetProvider.MessagesService
-            .GetLastReadMessageIdAsync(chatId);
-        if(lastMsgResponse.StatusCode == 200 || lastMsgResponse.StatusCode == 202)
-        {
-            LastReadMessageId = lastMsgResponse.Content!;
-        }
-        else 
-        {
-            await AppShell.Current.DisplayAlert("ChatApp", lastMsgResponse?.StatusMessage, "OK");
-            return;
-        }
-        await LoadMessages(lastReadMessageId);
+        await LoadMessages();
     }
 }

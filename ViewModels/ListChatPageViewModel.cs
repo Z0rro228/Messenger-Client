@@ -44,13 +44,12 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
         Chats = new ObservableCollection<Chat>();
         OpenChatPageCommand = new Command<int>((param) =>
         {
-
-            Task.Run(async () => 
+            if(IsProcessingNavigate) return;
+            OpenChatPage(param).GetAwaiter().OnCompleted(() => 
             {
-                IsProcessingNavigate = true;
-                await OpenChatPage(param);
-            }).GetAwaiter().OnCompleted(() => 
-                IsProcessingNavigate = false);
+                IsProcessingNavigate = false;
+            });
+
         });
         RefreshCommand = new Command(() => 
         {
@@ -108,6 +107,8 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     async Task OpenChatPage(int chatId)
     {
         await Shell.Current.GoToAsync($"ChatPage?chatId={chatId}");
+        // await AppShell.Current.DisplayAlert("ChatApp", "Tap", "OK");
+
     }
     public bool isRefreshing;
     public bool IsRefreshing
