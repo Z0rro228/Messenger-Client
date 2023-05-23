@@ -37,10 +37,39 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     }
 
     private ObservableCollection<Chat> chats;
-
+    private string newChatTitle;
+    private bool isProcessingAdd;
+    public bool IsProcessingAdd
+    {
+        get {return isProcessingAdd;}
+        set {isProcessingAdd = value; OnPropertyChanged();}
+    }
+    public string NewChatTitle
+    {
+        get {return newChatTitle;}
+        set {newChatTitle = value; OnPropertyChanged();}
+    }
+    private bool isConnected;
+    public bool IsConnected
+    {
+        get => isConnected;
+        set
+        {
+            if (isConnected != value)
+            {
+                isConnected = value;
+                OnPropertyChanged("IsConnected");
+            }
+        }
+    }
     public ListChatPageViewModel(IInternetProvider internetProvider)
     {
         _internetProvider = internetProvider;
+        _internetProvider.ChatHubService.Connect();
+        _internetProvider.ChatHubService.OnJoinChat += OnJoinChat;
+        _internetProvider.ChatHubService.OnDeleteChat += OnDeleteChat;
+        _internetProvider.ChatHubService.OnLeaveChat += OnLeaveChat;
+        _internetProvider.ChatHubService.OnError += OnError;
         Chats = new ObservableCollection<Chat>();
         OpenChatPageCommand = new Command<int>((param) =>
         {
@@ -62,14 +91,15 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
                     IsRefreshing = false;
                 });
         });
-        NavigateToAddChatCommand = new Command(() =>
+        
+        AddChatCommand = new Command(() => 
         {
-            if (IsProcessingNavToAdd) return;
-            NavigateToAddChat().GetAwaiter().OnCompleted(() =>
-            {
-                IsProcessingNavToAdd = false;
-            });
+            if(NewChatTitle.Trim() == "") return;
+            if(IsProcessingAdd == false)
+                AddChat(NewChatTitle).GetAwaiter().OnCompleted(() => {IsProcessingAdd = false;});
         });
+
+
     }
     public async Task Refresh()
     {
@@ -90,8 +120,6 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
         {
             if(responseOfChats.Content != null)
                 Chats = new ObservableCollection<Chat>(responseOfChats.Content);
-              
-               
         }
         else 
         {
@@ -100,17 +128,23 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
             return;
         } 
     }
-    async Task NavigateToAddChat()
+    async Task AddChat(string Title)
     {
-        await Shell.Current.GoToAsync("AddChatPage");
+        var chat = new Chat()
+        {
+            Title = Title,
+            AdminId = _userId,
+            UsersId = new List<string>()
+            {
+                _userId
+            },
+            IsGroup = true
+        };
+        await _internetProvider.ChatHubService.CreateChat(chat);
     }
     async Task OpenChatPage(int chatId)
     {
         await Shell.Current.GoToAsync($"ChatPage?chatId={chatId}&userId={_userId}");
-        
-        // await AppShell.Current.DisplayAlert("ChatApp", "Tap", "OK");
-
-
     }
     public bool isRefreshing;
     public bool IsRefreshing
@@ -126,11 +160,31 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     }
     public ICommand OpenChatPageCommand { get; set; }
     public ICommand RefreshCommand {get; set;}
+    public ICommand AddChatCommand{get; set;}
     private bool isProcessingNavToAdd;
     public bool IsProcessingNavToAdd
     {
         get { return isProcessingNavToAdd; }
         set { isProcessingNavToAdd = value; OnPropertyChanged(); }
     }
-        public ICommand NavigateToAddChatCommand { get; set; }
+    private void OnJoinChat(Chat chat)
+    {
+        Chats.Add(chat);
+    }
+    private void OnDeleteChat(int chatId)
+    {
+        var ch = Chats.FirstOrDefault(c => c.Id == chatId);
+        if(ch != null) Chats.Remove(ch);
+    }
+    private void OnLeaveChat(string leavedUserId, int chatId)
+    {
+        if(leavedUserId == _userId)
+        {
+            OnDeleteChat(chatId);
+        }
+    }
+    private async void OnError(string msg)
+    {
+        await AppShell.Current.DisplayAlert("ChatApp", msg, "OK");
+    }
 }

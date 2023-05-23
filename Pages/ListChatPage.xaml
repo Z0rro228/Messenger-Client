@@ -56,6 +56,8 @@
                 </StackLayout>
             </Grid>
             <StackLayout Orientation="Horizontal" Grid.Row="1">
+                <Entry Placeholder="Enter name of new chat"
+                    Text = "{Binding NewChatTitle}"/>
                 <Button
                         Margin="10,0,0,0"
                         BackgroundColor="#152c39"
@@ -63,7 +65,7 @@
                         HeightRequest="50"
                         WidthRequest="110"
                         Text="Add chat"
-                        Command="{Binding NavigateToAddChatCommand}"
+                        Command="{Binding AddChatCommand}"
                         HorizontalOptions="End"
                         FontSize="18">
                 </Button>
