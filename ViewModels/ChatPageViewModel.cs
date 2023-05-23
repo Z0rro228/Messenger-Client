@@ -37,10 +37,21 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
         chatId = int.Parse(HttpUtility.UrlDecode(query["chatId"].ToString()));
         _userId = HttpUtility.UrlDecode(query["userId"].ToString());
     }
-
+    public bool isRefreshing;
+    public bool IsRefreshing
+    {
+        get { return isRefreshing; }
+        set { isRefreshing = value; OnPropertyChanged(); }
+    }
     private IInternetProvider _internetProvider;
     private ObservableCollection<Message> messages = new ObservableCollection<Message>();
     private string message;
+    private string? attachUri;
+    public string? AttachUri
+    {
+        get {return attachUri;}
+        set {attachUri = value; OnPropertyChanged();}
+    }
     public string Message
     {
         get { return message; }
@@ -70,7 +81,19 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
                 IsProcessingNavToGoBack = false;
             });
         });
-        //TODO connetcing to hub
+        
+        RefreshCommand = new Command(() => 
+        {
+            
+            Task.Run(async () =>
+            {
+                IsRefreshing = true;
+                await Initialize();
+            }).GetAwaiter().OnCompleted(() =>
+            {
+                IsRefreshing = false;
+            });
+        });
     }
     private async Task LoadMessages()
     {
@@ -84,10 +107,16 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
             await AppShell.Current.DisplayAlert("ChatApp", messagesResponse?.StatusMessage, "OK");
         }
     }
-    private async Task SendMessage(string content, string? attach = null)
+    private async Task SendMessage(string content)
     {
-        // await _internetProvider.ChatHubService.SendMessage(new Message(){Content = content});
-        await AppShell.Current.DisplayAlert("ChatApp", content, "OK");
+        if(content == null || content.Trim() == "") return;
+        var msg = new Message()
+        {
+            Content = content,
+            AttachUri = AttachUri
+        };
+        AttachUri = null;
+        await _internetProvider.ChatHubService.SendMessage(msg);
     }
     public ICommand SendMessageCommand { get; set; }
     public ICommand LoadMessagesCommand { get; set; }
@@ -106,6 +135,7 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
             return;
         }
         await LoadMessages();
+        await _internetProvider.ChatHubService.Connect();
     }
     async Task NavigateToGoBack()
     {
@@ -130,4 +160,5 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
             }
         }
     }
+    public ICommand RefreshCommand {get; set;}
 }
