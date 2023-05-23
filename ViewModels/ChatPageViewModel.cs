@@ -25,7 +25,7 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     private int chatId;
     private string title;
     private Chat chatInfo;
-    public string _userId;
+    public static string _userId;
     public Chat ChatInfo
     {
         get { return chatInfo; }

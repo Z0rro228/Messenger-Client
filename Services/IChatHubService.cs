@@ -6,7 +6,7 @@ public interface IChatHubService : IDisposable
     event Action<string>? OnError;
     event Action<Message>? OnRecieveMessage;
     event Action<int, int>? OnDeleteMessage; // Handeler(chatId, messageId)
-    event Action<Chat>? OnJoinChat;
+    //Action<Chat>? OnJoinChat { get; set; }
     event Action<int>? OnDeleteChat;
     event Action<string, int>? OnLeaveChat;
     event Action<int, int>? OnSetLastReadMessage;
