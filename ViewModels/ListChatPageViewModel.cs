@@ -64,7 +64,7 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
         });
         NavigateToAddChatCommand = new Command(() =>
         {
-            if (isProcessingNavToAdd) return;
+            if (IsProcessingNavToAdd) return;
             NavigateToAddChat().GetAwaiter().OnCompleted(() =>
             {
                 IsProcessingNavToAdd = false;
@@ -107,7 +107,9 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     async Task OpenChatPage(int chatId)
     {
         await Shell.Current.GoToAsync($"ChatPage?chatId={chatId}");
+        
         // await AppShell.Current.DisplayAlert("ChatApp", "Tap", "OK");
+
 
     }
     public bool isRefreshing;

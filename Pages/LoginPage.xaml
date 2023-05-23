@@ -13,8 +13,6 @@
                 HorizontalOptions="Center"
                 TextColor="White"
                 Text="ChatApp" />
-
-
             <Frame
                 Margin="0,45,0,0"
                 Padding="10,0,10,0"

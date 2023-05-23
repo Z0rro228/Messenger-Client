@@ -26,7 +26,8 @@
                         Margin="10,0,0,0"
                         FontAttributes="Bold"
                         FontSize="20"
-                        Text="Title"
+                        Text="{Binding _Title}"
+                        TextColor="White"
                         VerticalOptions="Center" />
                 </StackLayout>
                 <StackLayout
@@ -38,6 +39,7 @@
                         BackgroundColor="#152c39"
                         CornerRadius="45"
                         Text="Back"
+                        Command="{Binding NavigateToGoBackCommand}"
                         HeightRequest="50"
                         WidthRequest="80"
                         FontSize="18">
