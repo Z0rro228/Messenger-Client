@@ -30,7 +30,6 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     public IInternetProvider _internetProvider;
     public User? _userProfile;
     public string _userId;
-    public int count= 0;
     public ObservableCollection<Chat> Chats
     {
         get { return chats; }
@@ -63,6 +62,14 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
                     IsRefreshing = false;
                 });
         });
+        NavigateToAddChatCommand = new Command(() =>
+        {
+            if (IsProcessingNavToAdd) return;
+            NavigateToAddChat().GetAwaiter().OnCompleted(() =>
+            {
+                IsProcessingNavToAdd = false;
+            });
+        });
     }
     public async Task Refresh()
     {
@@ -83,8 +90,7 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
         {
             if(responseOfChats.Content != null)
                 Chats = new ObservableCollection<Chat>(responseOfChats.Content);
-               Debug.WriteLine(responseOfChats.Content.Count);
-            count = responseOfChats.Content.Count;
+              
                
         }
         else 
@@ -94,10 +100,16 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
             return;
         } 
     }
+    async Task NavigateToAddChat()
+    {
+        await Shell.Current.GoToAsync("AddChatPage");
+    }
     async Task OpenChatPage(int chatId)
     {
         await Shell.Current.GoToAsync($"ChatPage?chatId={chatId}");
+        
         // await AppShell.Current.DisplayAlert("ChatApp", "Tap", "OK");
+
 
     }
     public bool isRefreshing;
@@ -114,16 +126,11 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     }
     public ICommand OpenChatPageCommand { get; set; }
     public ICommand RefreshCommand {get; set;}
-    public int Couunt
+    private bool isProcessingNavToAdd;
+    public bool IsProcessingNavToAdd
     {
-        get => count;
-        set
-        {
-            if (count != value)
-            {
-                count = value;
-                OnPropertyChanged();
-            }
-        }
+        get { return isProcessingNavToAdd; }
+        set { isProcessingNavToAdd = value; OnPropertyChanged(); }
     }
+        public ICommand NavigateToAddChatCommand { get; set; }
 }

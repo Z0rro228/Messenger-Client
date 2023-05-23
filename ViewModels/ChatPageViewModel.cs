@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.Web;
 using MessengerApp.Models;
 using System.Collections.ObjectModel;
+
 namespace MessengerApp.ViewModels;
 public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
 {
@@ -22,46 +23,58 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
     private int chatId;
+    private string title;
     private Chat chatInfo;
+    public string _userId;
     public Chat ChatInfo
     {
-        get {return chatInfo;}
-        set {chatInfo = value; OnPropertyChanged();}
+        get { return chatInfo; }
+        set { chatInfo = value; OnPropertyChanged(); }
     }
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
         if (query == null || query.Count == 0) return;
-        chatId = int.Parse(HttpUtility.UrlDecode(query["chatId"].ToString()));            
+        chatId = int.Parse(HttpUtility.UrlDecode(query["chatId"].ToString()));
     }
+
     private IInternetProvider _internetProvider;
     private ObservableCollection<Message> messages = new ObservableCollection<Message>();
     private string message;
     public string Message
     {
-        get {return message;}
-        set {message = value; OnPropertyChanged();}
+        get { return message; }
+        set { message = value; OnPropertyChanged(); }
     }
-    public ObservableCollection<Message> Messages 
+    public ObservableCollection<Message> Messages
     {
-        get {return messages;}
-        set {messages = value; OnPropertyChanged();}
+        get { return messages; }
+        set { messages = value; OnPropertyChanged(); }
     }
     public ChatPageViewModel(IInternetProvider internetProvider)
     {
         _internetProvider = internetProvider;
-        SendMessageCommand = new Command(async () => 
+        SendMessageCommand = new Command(async () =>
         {
             await SendMessage(Message);
         });
-        LoadMessagesCommand = new Command(async () => {
+        LoadMessagesCommand = new Command(async () =>
+        {
             await LoadMessages();
+        });
+        NavigateToGoBackCommand = new Command(() =>
+        {
+            if (IsProcessingNavToGoBack) return;
+            NavigateToGoBack().GetAwaiter().OnCompleted(() =>
+            {
+                IsProcessingNavToGoBack = false;
+            });
         });
         //TODO connetcing to hub
     }
     private async Task LoadMessages()
     {
         var messagesResponse = await _internetProvider.MessagesService.GetAllMessages(chatId);
-        if(messagesResponse.StatusCode == 200 || messagesResponse.StatusCode == 202)
+        if (messagesResponse.StatusCode == 200 || messagesResponse.StatusCode == 202)
         {
             Messages = new ObservableCollection<Message>(messagesResponse.Content!);
         }
@@ -74,21 +87,46 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     {
         // await _internetProvider.ChatHubService.SendMessage(new Message(){Content = content});
         await AppShell.Current.DisplayAlert("ChatApp", content, "OK");
-    }    
-    public ICommand SendMessageCommand {get; set;}
-    public ICommand LoadMessagesCommand {get; set;}
+    }
+    public ICommand SendMessageCommand { get; set; }
+    public ICommand LoadMessagesCommand { get; set; }
+    public ICommand NavigateToGoBackCommand { get; set; }
     public async Task Initialize()
     {
         var chatInfoResponse = await _internetProvider.ChatService.GetChatInfoAsync(chatId);
-        if(chatInfoResponse.StatusCode == 200 || chatInfoResponse.StatusCode == 202)
+        if (chatInfoResponse.StatusCode == 200 || chatInfoResponse.StatusCode == 202)
         {
             chatInfo = chatInfoResponse.Content!;
+            _Title = chatInfo.Title;
         }
-        else 
+        else
         {
             await AppShell.Current.DisplayAlert("ChatApp", chatInfoResponse?.StatusMessage, "OK");
             return;
         }
         await LoadMessages();
+    }
+    async Task NavigateToGoBack()
+    {
+        await Shell.Current.GoToAsync($"ListChatPage?userId={_userId}", true);
+    }
+    private bool isProcessingNavToGoBack;
+    public bool IsProcessingNavToGoBack
+    {
+        get { return isProcessingNavToGoBack; }
+        set { isProcessingNavToGoBack = value; OnPropertyChanged(); }
+    }
+
+    public string _Title
+    {
+        get => title;
+        set
+        {
+            if (title != value)
+            {
+                title = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

@@ -38,8 +38,13 @@ public class RegistrationPageViewModel : INotifyPropertyChanged
         RegisterCommand = new Command(() =>
         {
             if (IsProcessing) return;
-            if(Password != RepeatedPassword || Password.Trim() == "" ||
-                UserName.Trim() == "" || Email.Trim() == "") return;
+            if (Password != RepeatedPassword || Password.Trim() == "" ||
+                UserName.Trim() == "" || Email.Trim() == "")
+            {
+                AppShell.Current.DisplayAlert("ChatApp","Ќекоторые пол€ пустые или пароли не совпадают", "OK");
+                return;
+            }
+  
             IsProcessing = true;
             Register().GetAwaiter().OnCompleted(() =>
             {

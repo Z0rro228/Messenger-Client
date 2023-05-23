@@ -26,7 +26,7 @@
                         Margin="10,0,0,0"
                         FontAttributes="Bold"
                         FontSize="20"
-                        Text="{Binding Count}"
+                        Text="You"
                         TextColor="White"
                         VerticalOptions="Center" />
                 </StackLayout>
@@ -56,11 +56,6 @@
                 </StackLayout>
             </Grid>
             <StackLayout Orientation="Horizontal" Grid.Row="1">
-                 <Entry
-                    Placeholder="Enter chat name"
-                    ReturnType="Go"
-                    TextColor="Black"
-                    WidthRequest="400"/>
                 <Button
                         Margin="10,0,0,0"
                         BackgroundColor="#152c39"
@@ -68,10 +63,10 @@
                         HeightRequest="50"
                         WidthRequest="110"
                         Text="Add chat"
+                        Command="{Binding NavigateToAddChatCommand}"
                         HorizontalOptions="End"
                         FontSize="18">
                 </Button>
-
             </StackLayout>
 
             
@@ -83,8 +78,8 @@
                 SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <HorizontalStackLayout>
+                        <ViewCell> 
+                            <HorizontalStackLayout BackgroundColor="White" Padding="5" Margin="5,5,5,5">
                                 <HorizontalStackLayout.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Path=OpenChatPageCommand, Source={RelativeSource AncestorType={x:Type viewModels:ListChatPageViewModel}}}" 
                                     CommandParameter="{Binding Id}"/>
@@ -96,7 +91,6 @@
                                         Source="dotnet_bot.png"
                                         WidthRequest="54" />
                                 </Grid>
-
                                 <StackLayout
                                     Margin="10,5,0,0"
                                     HorizontalOptions="Start"
@@ -107,7 +101,6 @@
                                         HorizontalTextAlignment="Start"
                                         Text="{Binding Title}"
                                         VerticalOptions="Center" />
-
                                 </StackLayout>
                             </HorizontalStackLayout>
 
