@@ -66,7 +66,7 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     {
         _internetProvider = internetProvider;
         _internetProvider.ChatHubService.Connect();
-        _internetProvider.ChatHubService.OnJoinChat += OnJoinChat;
+      //  _internetProvider.ChatHubService.OnJoinChat += OnJoinChat;
         _internetProvider.ChatHubService.OnDeleteChat += OnDeleteChat;
         _internetProvider.ChatHubService.OnLeaveChat += OnLeaveChat;
         _internetProvider.ChatHubService.OnError += OnError;

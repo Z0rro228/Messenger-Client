@@ -11,6 +11,7 @@
                     HorizontalOptions="Start"
                     Padding="10"
                     Margin="8">
-        <Label Text="{Binding Content}"/>
+        <Label Text="{Binding Content}"
+               TextColor="White"/>
     </Border>
 </ContentView>
