@@ -66,10 +66,6 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     {
         _internetProvider = internetProvider;
         _internetProvider.ChatHubService.Connect();
-        _internetProvider.ChatHubService.OnJoinChat += OnJoinChat;
-        _internetProvider.ChatHubService.OnDeleteChat += OnDeleteChat;
-        _internetProvider.ChatHubService.OnLeaveChat += OnLeaveChat;
-        _internetProvider.ChatHubService.OnError += OnError;
         Chats = new ObservableCollection<Chat>();
         OpenChatPageCommand = new Command<int>((param) =>
         {
@@ -98,8 +94,6 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
             if(IsProcessingAdd == false)
                 AddChat(NewChatTitle).GetAwaiter().OnCompleted(() => {IsProcessingAdd = false;});
         });
-
-
     }
     public async Task Refresh()
     {
@@ -166,25 +160,5 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     {
         get { return isProcessingNavToAdd; }
         set { isProcessingNavToAdd = value; OnPropertyChanged(); }
-    }
-    private void OnJoinChat(Chat chat)
-    {
-        Chats.Add(chat);
-    }
-    private void OnDeleteChat(int chatId)
-    {
-        var ch = Chats.FirstOrDefault(c => c.Id == chatId);
-        if(ch != null) Chats.Remove(ch);
-    }
-    private void OnLeaveChat(string leavedUserId, int chatId)
-    {
-        if(leavedUserId == _userId)
-        {
-            OnDeleteChat(chatId);
-        }
-    }
-    private async void OnError(string msg)
-    {
-        await AppShell.Current.DisplayAlert("ChatApp", msg, "OK");
     }
 }
