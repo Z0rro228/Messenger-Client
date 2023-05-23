@@ -30,7 +30,6 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     public IInternetProvider _internetProvider;
     public User? _userProfile;
     public string _userId;
-    public int count= 0;
     public ObservableCollection<Chat> Chats
     {
         get { return chats; }
@@ -64,11 +63,18 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
                     IsRefreshing = false;
                 });
         });
+        NavigateToAddChatCommand = new Command(() =>
+        {
+            if (isProcessingNavToAdd) return;
+            NavigateToAddChat().GetAwaiter().OnCompleted(() =>
+            {
+                IsProcessingNavToAdd = false;
+            });
+        });
     }
     public async Task Refresh()
     {
         var responseOfProfile = await _internetProvider.UserService.GetUserInfoAsync(_userId);
-        Debug.WriteLine("��� �����");
         if (responseOfProfile.StatusCode == 200 || responseOfProfile.StatusCode == 202)
         {
             if(responseOfProfile.Content != null)
@@ -81,13 +87,11 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
             return;
         }
         var responseOfChats = await _internetProvider.ChatService.GetUsersChatsAsync();
-        Debug.WriteLine("��� �����");
         if (responseOfChats.StatusCode == 200 || responseOfChats.StatusCode == 202)
         {
             if(responseOfChats.Content != null)
                 Chats = new ObservableCollection<Chat>(responseOfChats.Content);
-               Debug.WriteLine(responseOfChats.Content.Count);
-            count = responseOfChats.Content.Count;
+              
                
         }
         else 
@@ -96,6 +100,10 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
             await AppShell.Current.DisplayAlert("ChatApp", responseOfChats?.StatusMessage, "OK");
             return;
         } 
+    }
+    async Task NavigateToAddChat()
+    {
+        await Shell.Current.GoToAsync("AddChatPage");
     }
     async Task OpenChatPage(int chatId)
     {
@@ -115,16 +123,11 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     }
     public ICommand OpenChatPageCommand { get; set; }
     public ICommand RefreshCommand {get; set;}
-    public int Couunt
+    private bool isProcessingNavToAdd;
+    public bool IsProcessingNavToAdd
     {
-        get => count;
-        set
-        {
-            if (count != value)
-            {
-                count = value;
-                OnPropertyChanged();
-            }
-        }
+        get { return isProcessingNavToAdd; }
+        set { isProcessingNavToAdd = value; OnPropertyChanged(); }
     }
+        public ICommand NavigateToAddChatCommand { get; set; }
 }

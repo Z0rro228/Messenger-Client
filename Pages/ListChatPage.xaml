@@ -26,7 +26,7 @@
                         Margin="10,0,0,0"
                         FontAttributes="Bold"
                         FontSize="20"
-                        Text="{Binding Count}"
+                        Text="You"
                         TextColor="White"
                         VerticalOptions="Center" />
                 </StackLayout>
@@ -56,11 +56,6 @@
                 </StackLayout>
             </Grid>
             <StackLayout Orientation="Horizontal" Grid.Row="1">
-                 <Entry
-                    Placeholder="Enter chat name"
-                    ReturnType="Go"
-                    TextColor="Black"
-                    WidthRequest="400"/>
                 <Button
                         Margin="10,0,0,0"
                         BackgroundColor="#152c39"
@@ -68,20 +63,17 @@
                         HeightRequest="50"
                         WidthRequest="110"
                         Text="Add chat"
+                        Command="{Binding NavigateToAddChatCommand}"
                         HorizontalOptions="End"
                         FontSize="18">
                 </Button>
-
             </StackLayout>
-
-            
-                    <CollectionView Grid.Row="2"
-                    Grid.Column="1"
+            <CollectionView Grid.Row="2"
                     Margin="10,0,0,0"
                     ItemsSource="{Binding Chats}">
-                   
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
                         <ScrollView Margin="2">
                             <Grid ColumnDefinitions=".15*,.85*"
                              HeightRequest="50">
@@ -94,13 +86,12 @@
                              HeightRequest="45" 
                            />
                                 <Label Grid.Column="1" Text="{Binding Title}" HorizontalOptions="Start" VerticalOptions="Start"  Margin="2"/>
-                                
+
                             </Grid>
                         </ScrollView>
                     </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </Grid>
-
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
     </RefreshView>
 </ContentPage>
