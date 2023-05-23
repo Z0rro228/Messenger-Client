@@ -4,9 +4,21 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewModel="clr-namespace:MessengerApp.ViewModels"
+    xmlns:templates="clr-namespace:MessengerApp.Templates"
     Title="Chat"
     Background="#13232f"
     NavigatedTo="ContentPage_NavigatedTo">
+    <ContentPage.Resources>
+        <DataTemplate x:Key="IncomingMessage">
+            <templates:IncomingMessageTemplate />
+        </DataTemplate>
+        <DataTemplate  x:Key="OutgoingMessage">
+            <templates:OutgoingMessageTemplate />
+        </DataTemplate>
+        <templates:TemplateSelector x:Key="TemplateSelector" 
+                              IncomingMessageTemplate="{StaticResource IncomingMessage}"
+                              OutgoingMessageTemplate="{StaticResource OutgoingMessage}"/>
+    </ContentPage.Resources>
     <RefreshView Margin="10" IsRefreshing="{Binding IsRefreshing}">
         <Grid>
             <Grid.RowDefinitions>
@@ -56,6 +68,11 @@
                     </Button>
                 </StackLayout>
             </Grid>
+
+            <CollectionView Grid.Row="1" ItemsSource="{Binding Messages}" 
+                    Margin="10"
+                    ItemTemplate="{StaticResource TemplateSelector}">
+            </CollectionView>
 
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
