@@ -45,13 +45,12 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
         Chats = new ObservableCollection<Chat>();
         OpenChatPageCommand = new Command<int>((param) =>
         {
-
-            Task.Run(async () => 
+            if(IsProcessingNavigate) return;
+            OpenChatPage(param).GetAwaiter().OnCompleted(() => 
             {
-                IsProcessingNavigate = true;
-                await OpenChatPage(param);
-            }).GetAwaiter().OnCompleted(() => 
-                IsProcessingNavigate = false);
+                IsProcessingNavigate = false;
+            });
+
         });
         RefreshCommand = new Command(() => 
         {
@@ -63,12 +62,6 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
                 {
                     IsRefreshing = false;
                 });
-        });
-        OpenMainPageCommand = new Command(async () => 
-        {
-            // await AppShell.Current.DisplayAlert("ChatApp", "Tap", "OK");
-
-            await Shell.Current.GoToAsync("MainPage");
         });
     }
     public async Task Refresh()
@@ -87,7 +80,6 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
             return;
         }
         var responseOfChats = await _internetProvider.ChatService.GetUsersChatsAsync();
-        Debug.WriteLine("��� �����");
         if (responseOfChats.StatusCode == 200 || responseOfChats.StatusCode == 202)
         {
             if(responseOfChats.Content != null)
@@ -105,8 +97,8 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     }
     async Task OpenChatPage(int chatId)
     {
-        // await Shell.Current.GoToAsync($"ChatPage?chatId={chatId}");
-        await AppShell.Current.DisplayAlert("ChatApp", "Tap", "OK");
+        await Shell.Current.GoToAsync($"ChatPage?chatId={chatId}");
+        // await AppShell.Current.DisplayAlert("ChatApp", "Tap", "OK");
 
     }
     public bool isRefreshing;
@@ -123,7 +115,6 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     }
     public ICommand OpenChatPageCommand { get; set; }
     public ICommand RefreshCommand {get; set;}
-    public ICommand OpenMainPageCommand{get; set;}
     public int Couunt
     {
         get => count;

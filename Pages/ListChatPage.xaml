@@ -86,8 +86,8 @@
                         <ViewCell>
                             <HorizontalStackLayout>
                                 <HorizontalStackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Path=OpenMainPageCommand, Source={RelativeSource AncestorType={x:Type viewModels:ListChatPageViewModel}}}" 
-                                    CommandParameter="{Binding Source={x:Reference chatsListView}, Path=SelectedItem.Id}"/>
+                                    <TapGestureRecognizer Command="{Binding Path=OpenChatPageCommand, Source={RelativeSource AncestorType={x:Type viewModels:ListChatPageViewModel}}}" 
+                                    CommandParameter="{Binding Id}"/>
                                 </HorizontalStackLayout.GestureRecognizers>
                                 <Grid HeightRequest="54" WidthRequest="58">
                                     <Image

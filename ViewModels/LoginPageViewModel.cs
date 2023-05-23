@@ -39,7 +39,7 @@ public class LoginPageViewModel : INotifyPropertyChanged
         });
         NavigateToRegisterCommand = new Command(() => 
         {
-            if(isProcessingNavToReg) return;
+            if(IsProcessingNavToReg) return;
             NavigateToRegister().GetAwaiter().OnCompleted(() => 
             {
                 IsProcessingNavToReg = false;
