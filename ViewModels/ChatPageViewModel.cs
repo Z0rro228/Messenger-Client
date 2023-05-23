@@ -35,6 +35,7 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     {
         if (query == null || query.Count == 0) return;
         chatId = int.Parse(HttpUtility.UrlDecode(query["chatId"].ToString()));
+        _userId = HttpUtility.UrlDecode(query["userId"].ToString());
     }
 
     private IInternetProvider _internetProvider;
@@ -108,7 +109,7 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     }
     async Task NavigateToGoBack()
     {
-        await Shell.Current.GoToAsync($"ListChatPage?userId={_userId}", true);
+        await Shell.Current.GoToAsync($"ListChatPage?userId={_userId}");
     }
     private bool isProcessingNavToGoBack;
     public bool IsProcessingNavToGoBack
