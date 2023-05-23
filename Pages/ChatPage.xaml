@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewModel="clr-namespace:MessengerApp.ViewModels"
     Title="Chat"
-    Background="#13232f">
+    Background="#13232f"
+    NavigatedTo="ContentPage_NavigatedTo">
     <RefreshView Margin="10" IsRefreshing="{Binding IsRefreshing}">
         <Grid>
             <Grid.RowDefinitions>
@@ -102,7 +103,7 @@
                     CornerRadius=" 20"
                     HeightRequest=" 36">
                     <Entry
-                        Placeholder="Aa"
+                        Placeholder="Type message"
                         Text="{Binding Message}"
                         TextColor="Black"
                         VerticalOptions="Center" />

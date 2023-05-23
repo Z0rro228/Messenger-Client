@@ -33,16 +33,19 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     private int lastReadMessageId;
     private int currentMessageId;
     private bool scrollingDown;
+    private string message;
+    public string Message
+    {
+        get {return message;}
+        set {message = value; OnPropertyChanged();}
+    }
     public int LastReadMessageId
     {
         get{return lastReadMessageId;}
         set{
             lastReadMessageId = value; 
+            SetLastReadMessage().Start();   
             OnPropertyChanged();
-            new Task(async () =>
-                {
-                    await SetLastReadMessage();
-                }).Start();        
             }
     }
     public int CurentMessageId
@@ -65,9 +68,9 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     public ChatPageViewModel(IInternetProvider internetProvider)
     {
         _internetProvider = internetProvider;
-        SendMessageCommand = new Command<string>(async (param) => 
+        SendMessageCommand = new Command(async () => 
         {
-            await SendMessage(param);
+            await SendMessage(Message);
         });
         LoadMessagesCommand = new Command(async () => {
             //TODO: TEST IT
@@ -103,8 +106,9 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     }
     private async Task SendMessage(string content, string? attach = null)
     {
-        throw new NotImplementedException();
-        await _internetProvider.ChatHubService.SendMessage(new Message(){Content = content});
+        // throw new NotImplementedException();
+        // await _internetProvider.ChatHubService.SendMessage(new Message(){Content = content});
+        await AppShell.Current.DisplayAlert("ChatApp", content, "OK");
     }
     private async Task SetLastReadMessage()
     {
