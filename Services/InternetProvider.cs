@@ -2,7 +2,7 @@ using System.Net;
 namespace MessengerApp.Services;
 public class InternetProvider: IInternetProvider //TODO: ASK FOR DISPOSABLE
 {
-    private string _serverRootUrl = "http://192.168.1.66:5296";
+    private string _serverRootUrl = "http://localhost:5296";
     private HttpClient? _httpClient;
     private IChatService? _chatService;
     private IAuthService? _authService;

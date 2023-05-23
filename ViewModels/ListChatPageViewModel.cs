@@ -12,6 +12,8 @@ using System.Web;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using MessengerApp.Models;
+using System;
+
 namespace MessengerApp.ViewModels;
 public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
 {
@@ -28,11 +30,19 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     public IInternetProvider _internetProvider;
     public User? _userProfile;
     public string _userId;
-    public ObservableCollection<Chat> Qwerty { get; set; } = new();
+    public int count= 0;
+    public ObservableCollection<Chat> Chats
+    {
+        get { return chats; }
+        set { chats = value; OnPropertyChanged(); }
+    }
+
+    private ObservableCollection<Chat> chats;
+
     public ListChatPageViewModel(IInternetProvider internetProvider)
     {
         _internetProvider = internetProvider;
-        Qwerty = new ObservableCollection<Chat>();
+        Chats = new ObservableCollection<Chat>();
         OpenChatPageCommand = new Command<int>((param) =>
         {
 
@@ -75,8 +85,10 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
         if (responseOfChats.StatusCode == 200 || responseOfChats.StatusCode == 202)
         {
             if(responseOfChats.Content != null)
-                Qwerty = new ObservableCollection<Chat>(responseOfChats.Content);
-               Debug.WriteLine("��� �����");
+                Chats = new ObservableCollection<Chat>(responseOfChats.Content);
+               Debug.WriteLine(responseOfChats.Content.Count);
+            count = responseOfChats.Content.Count;
+               
         }
         else 
         {
@@ -103,4 +115,16 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     }
     public ICommand OpenChatPageCommand { get; set; }
     public ICommand RefreshCommand {get; set;}
+    public int Couunt
+    {
+        get => count;
+        set
+        {
+            if (count != value)
+            {
+                count = value;
+                OnPropertyChanged();
+            }
+        }
+    }
 }
