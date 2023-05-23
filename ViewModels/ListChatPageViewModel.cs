@@ -106,7 +106,7 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     }
     async Task OpenChatPage(int chatId)
     {
-        await Shell.Current.GoToAsync($"ChatPage?chatId={chatId}");
+        await Shell.Current.GoToAsync($"ChatPage?chatId={chatId}&userId={_userId}");
         
         // await AppShell.Current.DisplayAlert("ChatApp", "Tap", "OK");
 

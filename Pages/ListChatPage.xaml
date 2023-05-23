@@ -79,7 +79,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell> 
-                            <HorizontalStackLayout BackgroundColor="White" Padding="5" Margin="5,5,5,5">
+                            <HorizontalStackLayout>
                                 <HorizontalStackLayout.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Path=OpenChatPageCommand, Source={RelativeSource AncestorType={x:Type viewModels:ListChatPageViewModel}}}" 
                                     CommandParameter="{Binding Id}"/>
