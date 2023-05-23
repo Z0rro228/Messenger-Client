@@ -90,6 +90,7 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
         
         AddChatCommand = new Command(() => 
         {
+            if(NewChatTitle == null) return;
             if(NewChatTitle.Trim() == "") return;
             if(IsProcessingAdd == false)
                 AddChat(NewChatTitle).GetAwaiter().OnCompleted(() => {IsProcessingAdd = false;});
