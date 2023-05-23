@@ -3,7 +3,7 @@
     x:Class="MessengerApp.Pages.ListChatPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:viewModel="clr-namespace:MessengerApp.ViewModels"
+    xmlns:viewModels="clr-namespace:MessengerApp.ViewModels"
     Title="Chat"
     Background="#13232f"
     NavigatedTo="ContentPage_NavigatedTo">
@@ -75,31 +75,46 @@
             </StackLayout>
 
             
-                    <CollectionView Grid.Row="2"
-                    Grid.Column="1"
-                    Margin="10,0,0,0"
-                    ItemsSource="{Binding Chats}">
-                   
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                        <ScrollView Margin="2">
-                            <Grid ColumnDefinitions=".15*,.85*"
-                             HeightRequest="50">
-                                <Frame Grid.ColumnSpan="2" BorderColor="LightBlue"/>
-                                <Button Grid.Column="1" CornerRadius="0"
-                            BackgroundColor="White" BorderColor="LightBlue"  
-                                    HorizontalOptions="Fill" x:Name="ChatButton"
-                            />
-                                <Image Grid.Column="0" Source="{Binding Avatar}" WidthRequest="45" 
-                             HeightRequest="45" 
-                           />
-                                <Label Grid.Column="1" Text="{Binding Title}" HorizontalOptions="Start" VerticalOptions="Start"  Margin="2"/>
-                                
-                            </Grid>
-                        </ScrollView>
+                <ListView
+                x:Name="chatsListView"
+                Grid.Row="3"
+                ItemsSource="{Binding Chats}"
+                RowHeight="64"
+                SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <HorizontalStackLayout>
+                                <HorizontalStackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=OpenMainPageCommand, Source={RelativeSource AncestorType={x:Type viewModels:ListChatPageViewModel}}}" 
+                                    CommandParameter="{Binding Source={x:Reference chatsListView}, Path=SelectedItem.Id}"/>
+                                </HorizontalStackLayout.GestureRecognizers>
+                                <Grid HeightRequest="54" WidthRequest="58">
+                                    <Image
+                                        HeightRequest="54"
+                                        HorizontalOptions="Start"
+                                        Source="dotnet_bot.png"
+                                        WidthRequest="54" />
+                                </Grid>
+
+                                <StackLayout
+                                    Margin="10,5,0,0"
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Center">
+                                    <Label
+                                        FontSize="17"
+                                        HorizontalOptions="Start"
+                                        HorizontalTextAlignment="Start"
+                                        Text="{Binding Title}"
+                                        VerticalOptions="Center" />
+
+                                </StackLayout>
+                            </HorizontalStackLayout>
+
+                        </ViewCell>
                     </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                </ListView.ItemTemplate>
+            </ListView>
             </Grid>
 
     </RefreshView>

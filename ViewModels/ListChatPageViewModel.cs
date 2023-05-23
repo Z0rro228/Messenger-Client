@@ -64,6 +64,12 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
                     IsRefreshing = false;
                 });
         });
+        OpenMainPageCommand = new Command(async () => 
+        {
+            // await AppShell.Current.DisplayAlert("ChatApp", "Tap", "OK");
+
+            await Shell.Current.GoToAsync("MainPage");
+        });
     }
     public async Task Refresh()
     {
@@ -99,7 +105,9 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     }
     async Task OpenChatPage(int chatId)
     {
-        await Shell.Current.GoToAsync($"ChatPage?chatId={chatId}");
+        // await Shell.Current.GoToAsync($"ChatPage?chatId={chatId}");
+        await AppShell.Current.DisplayAlert("ChatApp", "Tap", "OK");
+
     }
     public bool isRefreshing;
     public bool IsRefreshing
@@ -115,6 +123,7 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     }
     public ICommand OpenChatPageCommand { get; set; }
     public ICommand RefreshCommand {get; set;}
+    public ICommand OpenMainPageCommand{get; set;}
     public int Couunt
     {
         get => count;
