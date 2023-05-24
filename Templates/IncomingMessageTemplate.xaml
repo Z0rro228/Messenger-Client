@@ -3,15 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MessengerApp.Templates.IncomingMessageTemplate"
              xmlns:model="clr-namespace:MessengerApp.Models"
-             x:DataType="model:Message">
-    <Border Stroke="Gray"
+              x:DataType="model:Message">
+    <VerticalStackLayout>
+        <Label
+          Margin="40,20,3,0"
+          FontSize="11"
+          Text="{Binding Timestamp, StringFormat='{0:HH:mm dd.MM}'}" 
+            TextColor="White"/>
+        <HorizontalStackLayout>
+            <Image Source="dotnet_bot.svg" WidthRequest="30" HeightRequest="30"/>
+            <Border Stroke="Gray"
                     StrokeShape="RoundRectangle 8"
                     StrokeThickness="1"
                     WidthRequest="250"
                     HorizontalOptions="Start"
                     Padding="10"
                     Margin="8">
-        <Label Text="{Binding Content}"
-               TextColor="White"/>
-    </Border>
+                <VerticalStackLayout>
+                    <Label
+            Margin="0,0,0,5"
+          FontSize="11"
+          Text="{Binding FromUserName}"
+                        TextColor ="White"/>
+                    <Label Text="{Binding Content}"
+                           TextColor="White"/>
+                </VerticalStackLayout>
+
+            </Border>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
 </ContentView>
