@@ -12,7 +12,7 @@ public interface IChatHubService : IDisposable
     event Action<int, int>? OnSetLastReadMessage;
     Task Connect();
     Task Disconnect();
-    Task SendMessage(Message msg);
+    Task SendMessage(int chatId, Message msg);
     Task DeleteMessage(int chatId, int messageId);
     Task CreateChat(Chat chat);
     Task DeleteChat(int chatId);

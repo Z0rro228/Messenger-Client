@@ -100,6 +100,7 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
         var messagesResponse = await _internetProvider.MessagesService.GetAllMessages(chatId);
         if (messagesResponse.StatusCode == 200 || messagesResponse.StatusCode == 202)
         {
+            messagesResponse.Content!.Reverse();
             Messages = new ObservableCollection<Message>(messagesResponse.Content!);
         }
         else
@@ -113,10 +114,11 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
         var msg = new Message()
         {
             Content = content,
-            AttachUri = AttachUri
+            AttachUri = AttachUri,
+            ChatId = chatId
         };
         AttachUri = null;
-        await _internetProvider.ChatHubService.SendMessage(msg);
+        await _internetProvider.ChatHubService.SendMessage(chatId, msg);
     }
     public ICommand SendMessageCommand { get; set; }
     public ICommand LoadMessagesCommand { get; set; }
