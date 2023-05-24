@@ -5,6 +5,6 @@ public interface IChatService
 {
     Task<ContentResponse<Chat>> GetChatInfoAsync(int id); 
     Task<ContentResponse<List<Chat>>> GetUsersChatsAsync();
-    Task<BaseResponse> UploadChatAvatarAsync(int chatId, MultipartFormDataContent file);
+    Task<BaseResponse> UploadChatAvatarAsync(int chatId, Stream file);
 
 }

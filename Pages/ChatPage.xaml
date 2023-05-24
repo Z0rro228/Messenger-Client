@@ -100,6 +100,7 @@
                     HeightRequest="50"
                     WidthRequest="72"
                     Text="Media"
+                    Command="{Binding LoadFileCommand}"
                     FontSize="12">
                 </Button>
 

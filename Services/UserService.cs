@@ -1,6 +1,7 @@
 using MessengerApp.Models;
 using MessengerApp.Services.Responses;
 using System.Net.Http.Json;
+using System.Net.Http.Headers;
 
 namespace MessengerApp.Services;
 public class UserService : IUserService
@@ -54,13 +55,17 @@ public class UserService : IUserService
         }
         return result;
     }
-    public async Task<ContentResponse<string>> SetAvatarOfUserAsync(MultipartFormDataContent file) //TODO
+    public async Task<BaseResponse> SetAvatarOfUserAsync(Stream fileStream)
     {
-        var result = new ContentResponse<string>();
+        var result = new BaseResponse();
         try
         {
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, $"{_serverRootUrl}/api/user/ava");
-            var response = await httpClient.SendAsync(httpRequestMessage);
+            using var multipartFormContent = new MultipartFormDataContent();
+            var fileStreamContent = new StreamContent(fileStream);
+            fileStreamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+            multipartFormContent.Add(fileStreamContent, name: "file", fileName: "image.jpg");
+            using var response = await httpClient.PostAsync($"{_serverRootUrl}/api/user/ava", multipartFormContent);
+
             result.StatusCode = ((int)response.StatusCode);
             result.StatusMessage = await response.Content.ReadAsStringAsync();
         }
@@ -86,11 +91,5 @@ public class UserService : IUserService
         }
         return result;
     }
-    public async Task<ContentResponse<MultipartFormDataContent>> GetUserAvatarAsync(string id)
-    {
-        // var result = new Con
-        throw new NotImplementedException();
-    }
-    
 
 }

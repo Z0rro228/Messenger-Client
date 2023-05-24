@@ -14,6 +14,8 @@ using System.Web;
 using MessengerApp.Models;
 using System.Collections.ObjectModel;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Storage;
+using System.Net;
 namespace MessengerApp.ViewModels;
 public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
 {
@@ -106,6 +108,10 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
             }
             await _internetProvider.ChatHubService.AddToChat(chatId, usrInfo.Content!.Id);
         });
+        LoadFileCommand = new Command(async() => 
+        {
+            await LoadFile();
+        });
     }
     private async Task LoadMessages()
     {
@@ -176,4 +182,27 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     }
     public ICommand RefreshCommand {get; set;}
     public ICommand AddUserToChatCommand {get; set;}
+    private async Task LoadFile()
+    {
+        var result = await FilePicker.PickAsync(new PickOptions
+        {
+            PickerTitle="Select file",
+            FileTypes=FilePickerFileType.Videos
+        });
+        if(result == null) return;
+        var stream = await result.OpenReadAsync();
+        var resp = await _internetProvider.MessagesService.UploadFileAsync(stream, result);
+        if(resp.StatusCode == 200 || resp.StatusCode == 202)
+        {
+            AttachUri = resp.StatusMessage;
+            await AppShell.Current.DisplayAlert("ChatApp", AttachUri, "OK");
+
+        }
+        else 
+        {
+            await AppShell.Current.DisplayAlert("ChatApp", resp?.StatusMessage, "OK");
+        }
+    }
+    public ICommand LoadFileCommand {get; set;}
+    
 }

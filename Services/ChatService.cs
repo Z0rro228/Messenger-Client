@@ -1,6 +1,7 @@
 using MessengerApp.Models;
 using MessengerApp.Services.Responses;
 using System.Net.Http.Json;
+using System.Net.Http.Headers;
 
 namespace MessengerApp.Services;
 public class ChatService: IChatService
@@ -55,15 +56,17 @@ public class ChatService: IChatService
         }
         return result;    
     }
-    public async Task<BaseResponse> UploadChatAvatarAsync(int chatId, MultipartFormDataContent file)
+    public async Task<BaseResponse> UploadChatAvatarAsync(int chatId, Stream fileStream)
     {
-        
-        var result = new ContentResponse<string>();
+        var result = new BaseResponse();
         try
         {
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, _serverRootUrl + 
-                            "/api/chat/chatava/" + chatId.ToString());
-            var response = await httpClient.SendAsync(httpRequestMessage);
+            using var multipartFormContent = new MultipartFormDataContent();
+            var fileStreamContent = new StreamContent(fileStream);
+            fileStreamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+            multipartFormContent.Add(fileStreamContent, name: "file", fileName: "image.jpg");
+            using var response = await httpClient.PostAsync($"{_serverRootUrl}/api/chat/chatava/" + chatId.ToString(), multipartFormContent);
+
             result.StatusCode = ((int)response.StatusCode);
             result.StatusMessage = await response.Content.ReadAsStringAsync();
         }

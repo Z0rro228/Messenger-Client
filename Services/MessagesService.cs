@@ -1,6 +1,7 @@
 using MessengerApp.Services.Responses;
 using MessengerApp.Models;
 using System.Net.Http.Json;
+using System.Net.Http.Headers;
 
 namespace MessengerApp.Services;
 public class MessagesService : IMessagesService
@@ -88,16 +89,17 @@ public class MessagesService : IMessagesService
         // }
         return result;
     }
-    public async Task<BaseResponse> UploadFileAsync(MultipartFormDataContent file) //TODO
+    public async Task<BaseResponse> UploadFileAsync(Stream fileStream, FileResult res) 
     {
         var result = new BaseResponse();
         try
         {
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, $"{_serverRootUrl}/api/upload/attach");
-            // httpRequestMessage.Content = 
-             
-            //Send
-            var response = await httpClient.SendAsync(httpRequestMessage);
+            using var multipartFormContent = new MultipartFormDataContent();
+            var fileStreamContent = new StreamContent(fileStream);
+            fileStreamContent.Headers.ContentType = new MediaTypeHeaderValue(res.ContentType);
+            multipartFormContent.Add(fileStreamContent, name: "file", fileName: res.FileName);
+            using var response = await httpClient.PostAsync($"{_serverRootUrl}/api/upload/attach", multipartFormContent);
+
             result.StatusCode = ((int)response.StatusCode);
             result.StatusMessage = await response.Content.ReadAsStringAsync();
         }
