@@ -4,13 +4,21 @@
              x:Class="MessengerApp.Templates.OutgoingMessageTemplate"
              xmlns:model="clr-namespace:MessengerApp.Models"
              x:DataType="model:Message">
-    <Border Stroke="Black"
+    <VerticalStackLayout>
+        <Label 
+          HorizontalOptions="End"   
+          Margin="0,20,5,5"
+          FontSize="11"
+          Text="{Binding Timestamp, StringFormat='{0:HH:mm dd.MM}'}"
+            TextColor="White"/>
+        <Border Stroke="Black"
                     StrokeShape="RoundRectangle 8"
                     StrokeThickness="1"
                     WidthRequest="250"
                     HorizontalOptions="End"
                     Padding="10"
                     BackgroundColor="#eeeeee">
-        <Label Text="{Binding Content}"/>
-    </Border>
+            <Label Text="{Binding Content}"/>
+        </Border>
+    </VerticalStackLayout>
 </ContentView>

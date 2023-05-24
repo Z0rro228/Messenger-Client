@@ -78,7 +78,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition Width="72" />
-                    <ColumnDefinition Width="52" />
+                    <ColumnDefinition Width="62" />
                 </Grid.ColumnDefinitions>
 
                 <Frame
@@ -108,7 +108,7 @@
                     Command="{Binding SendMessageCommand}"
                     CornerRadius="45"
                     HeightRequest="50"
-                    WidthRequest="52"
+                    WidthRequest="62"
                     Text="Send"
                     FontSize="12">
                 </Button>
