@@ -62,7 +62,8 @@ public class ChatHubService : IChatHubService //TODO: TEST FOR IDISPOSABLE
     public async Task Connect()
     {
         // hubConnection
-        await hubConnection.StartAsync();
+        if (hubConnection.State == HubConnectionState.Disconnected)
+            await hubConnection.StartAsync();
     }
     public async Task Disconnect()
     {

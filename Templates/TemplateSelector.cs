@@ -18,13 +18,7 @@ namespace MessengerApp.Templates
             if (item is Message chat)
             {
                 if (chat.FromUserId != ChatPageViewModel._userId)
-                {
-                    if (Message.FromUserAvaUri == null)
-                    {
-                        Message.FromUserAvaUri = "dotnet_bot.svg";
-                    }
                     return IncomingMessageTemplate;
-                }
                 else
                     return OutgoingMessageTemplate;
             }

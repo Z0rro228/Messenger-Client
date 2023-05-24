@@ -11,7 +11,7 @@
           Text="{Binding Timestamp, StringFormat='{0:HH:mm dd.MM}'}" 
             TextColor="White"/>
         <HorizontalStackLayout>
-            <Image Source="{Binding FromUserAvaUri}" WidthRequest="30" HeightRequest="30" x:Name="Avatar"/>
+            <Image Source="dotnet_bot.svg" WidthRequest="30" HeightRequest="30"/>
             <Border Stroke="Gray"
                     BackgroundColor="RoyalBlue"
                     StrokeShape="RoundRectangle 8"
