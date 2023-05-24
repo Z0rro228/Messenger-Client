@@ -2,6 +2,7 @@
 using MessengerApp.Services;
 using MessengerApp.ViewModels;
 using MessengerApp.Pages;
+using CommunityToolkit.Maui;
 namespace MessengerApp;
 
 public static class MauiProgram
@@ -11,6 +12,7 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
+			.UseMauiCommunityToolkit()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

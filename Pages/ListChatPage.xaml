@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewModels="clr-namespace:MessengerApp.ViewModels"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     Title="Chat"
     Background="#13232f"
     NavigatedTo="ContentPage_NavigatedTo">
@@ -17,11 +18,12 @@
 
             <Grid>
                 <StackLayout Orientation="Horizontal">
-                    <Image
-                        HeightRequest="32"
-                        Source="dotnet_bot.svg"
+                    <ImageButton Source="{Binding Avatar}"
+                        Command="{Binding OnImageBtnClicked}"
+                        HorizontalOptions="Center"
                         VerticalOptions="Center"
-                        WidthRequest="32" />
+                        WidthRequest="32"
+                        HeightRequest="32"/>
                     <Label
                         Margin="10,0,0,0"
                         FontAttributes="Bold"
@@ -90,11 +92,7 @@
                                     CommandParameter="{Binding Id}"/>
                                 </HorizontalStackLayout.GestureRecognizers>
                                 <Grid HeightRequest="54" WidthRequest="58">
-                                    <Image
-                                        HeightRequest="54"
-                                        HorizontalOptions="Start"
-                                        Source="dotnet_bot.png"
-                                        WidthRequest="54" />
+                                    <toolkit:AvatarView Text="ZS" WidthRequest="48" HeightRequest="48" ImageSource="{Binding Avatar}"/>
                                 </Grid>
                                 <StackLayout
                                     Margin="10,5,0,0"

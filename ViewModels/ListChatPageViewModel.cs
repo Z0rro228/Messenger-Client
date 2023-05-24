@@ -95,6 +95,10 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
             if(IsProcessingAdd == false)
                 AddChat(NewChatTitle, isGroup).GetAwaiter().OnCompleted(() => {IsProcessingAdd = false;});
         });
+        OnImageBtnClicked = new Command(async () => 
+        {
+            await SetAvatar();
+        });
     }
     public async Task Refresh()
     {
@@ -103,6 +107,7 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
         {
             if(responseOfProfile.Content != null)
                 _userProfile = responseOfProfile.Content; 
+                if(_userProfile.Avatar != null) Avatar = _userProfile.Avatar;
         }
         else 
         {
@@ -161,5 +166,39 @@ public class ListChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
     {
         get { return isProcessingNavToAdd; }
         set { isProcessingNavToAdd = value; OnPropertyChanged(); }
+    }
+    public string Avatar
+    {
+        get {
+            if(_userProfile?.Avatar == null)
+            return "dotnet_bot.svg";
+            else return _userProfile.Avatar;
+        }
+        set 
+        {
+            _userProfile.Avatar = value; OnPropertyChanged();
+        }
+    }
+    public ICommand OnImageBtnClicked{get; set;}
+    private async Task SetAvatar()
+    {
+        var result = await FilePicker.PickAsync(new PickOptions
+        {
+            PickerTitle="Select file",
+            FileTypes=FilePickerFileType.Images
+        });
+        if(result == null) return;
+        var stream = await result.OpenReadAsync();
+        var resp = await _internetProvider.UserService.SetAvatarOfUserAsync(stream);
+        if(resp.StatusCode == 200 || resp.StatusCode == 202)
+        {
+            Avatar = resp.StatusMessage;
+            await AppShell.Current.DisplayAlert("ChatApp", Avatar, "OK");
+
+        }
+        else 
+        {
+            await AppShell.Current.DisplayAlert("ChatApp", resp?.StatusMessage, "OK");
+        }
     }
 }

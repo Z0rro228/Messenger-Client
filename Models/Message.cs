@@ -9,5 +9,6 @@ public class Message
     public DateTime Timestamp { get; set;}
     public string? FromUserId{get; set;}
     public string? FromUserName{get; set;}
+    public string? FromUserAvaUri{get; set;}
     public string? AttachUri{get; set;}
 }

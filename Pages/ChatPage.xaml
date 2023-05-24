@@ -29,11 +29,12 @@
 
             <Grid>
                 <StackLayout Orientation="Horizontal">
-                    <Image
-                        HeightRequest="32"
-                        Source="dotnet_bot.svg"
+                    <ImageButton Source="dotnet_bot.svg"
+                        
+                        HorizontalOptions="Center"
                         VerticalOptions="Center"
-                        WidthRequest="32" />
+                        WidthRequest="32"
+                        HeightRequest="32"/>
                     <Label
                         Margin="10,0,0,0"
                         FontAttributes="Bold"

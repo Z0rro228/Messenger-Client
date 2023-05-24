@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MessengerApp.Templates.IncomingMessageTemplate"
              xmlns:model="clr-namespace:MessengerApp.Models"
-              x:DataType="model:Message">
+              x:DataType="model:Message"
+              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
     <VerticalStackLayout>
         <Label
           Margin="40,20,3,0"
@@ -11,7 +12,7 @@
           Text="{Binding Timestamp, StringFormat='{0:HH:mm dd.MM}'}" 
             TextColor="White"/>
         <HorizontalStackLayout>
-            <Image Source="dotnet_bot.svg" WidthRequest="30" HeightRequest="30"/>
+            <toolkit:AvatarView Text="ZS" WidthRequest="48" HeightRequest="48" ImageSource="{Binding FromUserAvaUri}"/>
             <Border Stroke="Gray"
                     StrokeShape="RoundRectangle 8"
                     StrokeThickness="1"

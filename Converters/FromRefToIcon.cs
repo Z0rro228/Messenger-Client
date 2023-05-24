@@ -1,6 +1,6 @@
 using System.Globalization;
  
-namespace MessengerApp.Converters;
+namespace MessengerApp;
 public class FromRefToIcon : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
