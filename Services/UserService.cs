@@ -12,12 +12,33 @@ public class UserService : IUserService
         _serverRootUrl = uri;
     }
     private string _serverRootUrl;
-    public async Task<ContentResponse<User>> GetUserInfoAsync(string id)
+    public async Task<ContentResponse<User>> GetUserInfoAsyncById(string id)
     {
         var result = new ContentResponse<User>();
         try
         {
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, $"{_serverRootUrl}/api/user/getuserinfo/{id}");
+            var response = await httpClient.SendAsync(httpRequestMessage);
+            result.StatusCode = ((int)response.StatusCode);
+            if(result.StatusCode != 200 && result.StatusCode != 202)
+            {
+                result.StatusMessage = await response.Content.ReadAsStringAsync();
+            }
+            else 
+                result.Content = await response.Content.ReadFromJsonAsync<User>();
+        }
+        catch(Exception ex)
+        {
+            result.StatusMessage = ex.Message;
+        }
+        return result;
+    }
+    public async Task<ContentResponse<User>> GetUserInfoAsyncByName(string userName)
+    {
+        var result = new ContentResponse<User>();
+        try
+        {
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, $"{_serverRootUrl}/api/user/getuserinfobyname/{userName}");
             var response = await httpClient.SendAsync(httpRequestMessage);
             result.StatusCode = ((int)response.StatusCode);
             if(result.StatusCode != 200 && result.StatusCode != 202)

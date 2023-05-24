@@ -13,7 +13,7 @@ using System.Diagnostics;
 using System.Web;
 using MessengerApp.Models;
 using System.Collections.ObjectModel;
-
+using Microsoft.Maui.Controls;
 namespace MessengerApp.ViewModels;
 public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
 {
@@ -94,6 +94,18 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
                 IsRefreshing = false;
             });
         });
+        AddUserToChatCommand = new Command(async () => 
+        {
+            string result = await AppShell.Current.DisplayPromptAsync("Add user to chat", "Enter userName");
+            if(result.Trim() == "") return;
+            var usrInfo = await _internetProvider.UserService.GetUserInfoAsyncByName(result);
+            if(usrInfo.StatusCode != 200 && usrInfo.StatusCode != 202)
+            {
+                await AppShell.Current.DisplayAlert("ChatApp", usrInfo.StatusMessage, "OK");
+                return;
+            }
+            await _internetProvider.ChatHubService.AddToChat(chatId, usrInfo.Content!.Id);
+        });
     }
     private async Task LoadMessages()
     {
@@ -163,4 +175,5 @@ public class ChatPageViewModel : INotifyPropertyChanged, IQueryAttributable
         }
     }
     public ICommand RefreshCommand {get; set;}
+    public ICommand AddUserToChatCommand {get; set;}
 }

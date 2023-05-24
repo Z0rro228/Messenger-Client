@@ -63,7 +63,8 @@
                         CornerRadius="45"
                         HeightRequest="50"
                         WidthRequest="80"
-                        Text="Edit"
+                        Text="Add user"
+                        Command="{Binding AddUserToChatCommand}"
                         FontSize="18">
                     </Button>
                 </StackLayout>
