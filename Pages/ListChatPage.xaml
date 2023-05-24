@@ -102,6 +102,7 @@
                                         HorizontalOptions="Start"
                                         HorizontalTextAlignment="Start"
                                         Text="{Binding Title}"
+                                        TextColor="White"
                                         VerticalOptions="Center" />
                                 </StackLayout>
                             </HorizontalStackLayout>

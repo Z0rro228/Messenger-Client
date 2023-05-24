@@ -17,7 +17,7 @@
                     WidthRequest="250"
                     HorizontalOptions="End"
                     Padding="10"
-                    BackgroundColor="#eeeeee">
+                    BackgroundColor="LightPink">
             <Label Text="{Binding Content}"/>
         </Border>
     </VerticalStackLayout>
